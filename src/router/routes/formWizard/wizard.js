@@ -1,9 +1,10 @@
+import PersonalData from '@/views/waitingList/PersonalData.vue'
 const WizardRoutes = [
   {
     path: '/dados-pessoais',
     meta: { title: 'Dados Pessoais' },
     name: 'PersonalData',
-    component: () => import('@/views/waitingList/PersonalData.vue')
+    component: PersonalData
   },
   {
     path: '/endereco',

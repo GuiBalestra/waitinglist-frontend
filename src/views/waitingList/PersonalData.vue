@@ -140,18 +140,30 @@
         ></b-form-textarea>
       </b-form-group>
     </b-form>
+
+    <BackNextButton 
+      :back="back"
+      :next="next"
+    />
   </b-container>
 </template>
 
 <script>
+import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PersonalDataModel from '@/shared/models/personalDataModel'
 
 export default {
+  components: {
+    [BackNextButton.name]: BackNextButton
+  },
+
   data: () => ({
     form: new PersonalDataModel(),
+    back: 'Dashboard',
+    next: 'Address',
     genders: ['MASCULINO', 'FEMININO'],
     schoolTerms: ['MANHÃ', 'TARDE', 'INTEGRAL', 'SEM PERÍODO'],
-    yesNo: ['SIM', 'NÃO']
+    yesNo: ['SIM', 'NÃO'],
   }),
 
   computed: {
@@ -166,6 +178,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

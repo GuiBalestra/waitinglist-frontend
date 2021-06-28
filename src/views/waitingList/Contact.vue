@@ -94,15 +94,26 @@
         ></b-form-input>
       </b-form-group>
     </b-form>
+    <BackNextButton
+      :back="back"
+      :next="next"
+    />
   </b-container>
 </template>
 
 <script>
+import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import Contact from '@/shared/models/contact'
 
 export default {
+  components: {
+    [BackNextButton.name]: BackNextButton
+  },
+
   data: () => ({
     form: new Contact(),
+    back: 'Address',
+    next: 'WaitingList',
     contactTypes: ['MÃE', 'PAI', 'TIA', 'TIO', 'AVÓ', 'AVÔ', 'OUTROS']
   })
 }

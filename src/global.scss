@@ -1,3 +1,25 @@
 @import '~bootstrap-css-only/css/bootstrap.min.css';
 @import '~bootstrap-vue/dist/bootstrap-vue-icons.min.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
+@import '@/assets/styles/variables.scss';
+
+:root {
+  --dark: #{$dark};
+  --darker: #{$darker};
+  --dark-medium: #{$dark-medium};
+  --dark-low: #{$dark-low};
+  --lighter: #{$lighter};
+  --light: #{$light};
+  --light-medium: #{$light-medium};
+  --light-low: #{$light-low};
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+label{
+  color: var(--lighter);
+}

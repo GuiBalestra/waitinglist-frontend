@@ -1,14 +1,13 @@
 <template>
-  <div id="app">
-    <AppLayout />
-  </div>
+  <AppLayout id="app" />
 </template>
 
 <script>
-import AppLayout from './layouts/App'
+import AppLayout from './layouts/App/AppLayout.vue'
 
 export default {
   name: 'App',
+
   components: {
     AppLayout
   }
@@ -16,12 +15,8 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 </style>
