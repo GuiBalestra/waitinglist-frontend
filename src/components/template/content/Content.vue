@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="content">
+  <b-container class="content">
     <router-view />
   </b-container>
 </template>
@@ -14,5 +14,6 @@ export default {
   .content {
     grid-area: content;
     margin: 30px 0;
+    width: 100vw;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <b-container class="centralize" fluid>
+  <b-container class="centralize">
     <router-link :to="{ name: 'PersonalData' }">
       <b-button>Iniciar</b-button>
     </router-link>

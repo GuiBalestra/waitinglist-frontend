@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <b-container>
     <b-row class="inline-btn">
-      <router-link :to="{ name: back}">
-        <b-button class="back-button">Voltar</b-button>
+      <router-link :to="{ name: back }">
+        <b-button>Voltar</b-button>
       </router-link>
 
-      <b-button class="save-button">Enviar</b-button>
+      <router-link :to="{ name: sendedForm }">
+        <b-button>Enviar</b-button>
+      </router-link>
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -18,6 +20,11 @@ export default {
     back: {
       type: String,
       required: true
+    },
+
+    sendedForm: {
+      type: String,
+      required: true
     }
   }
 }
@@ -26,11 +33,5 @@ export default {
 <style>
   .inline-btn {
     justify-content: space-between;
-  }
-
-  .back-button, .save-button {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
   }
 </style>

@@ -1,5 +1,7 @@
 <template>
   <b-container>
+    <PageTitle :title="title" />
+
     <b-form>
       <b-form-group
         id="input-group-1"
@@ -102,11 +104,13 @@
 </template>
 
 <script>
+import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import Contact from '@/shared/models/contact'
 
 export default {
   components: {
+    [PageTitle.name]: PageTitle,
     [BackNextButton.name]: BackNextButton
   },
 
@@ -114,6 +118,7 @@ export default {
     form: new Contact(),
     back: 'Address',
     next: 'WaitingList',
+    title: 'Contato',
     contactTypes: ['MÃE', 'PAI', 'TIA', 'TIO', 'AVÓ', 'AVÔ', 'OUTROS']
   })
 }

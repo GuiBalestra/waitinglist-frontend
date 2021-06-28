@@ -23,6 +23,12 @@ const WizardRoutes = [
     meta: { title: 'Lista de Espera' },
     name: 'WaitingList',
     component: () => import('@/views/waitingList/WaitingList.vue')
+  },
+  {
+    path: '/formulario-enviado',
+    meta: { title: 'Formulário Enviado' },
+    name: 'SendedForm',
+    component: () => import('@/views/waitingList/SendedForm.vue')
   }
 ]
 

@@ -33,10 +33,4 @@ export default {
   .inline-btn {
     justify-content: space-between;
   }
-
-  .back-button, .next-button {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-  }
 </style>

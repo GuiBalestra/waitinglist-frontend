@@ -1,5 +1,7 @@
 <template>
   <b-container>
+    <PageTitle :title="title" />
+
     <b-form>
       <b-form-group
         id="input-group-1"
@@ -149,11 +151,13 @@
 </template>
 
 <script>
+import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PersonalDataModel from '@/shared/models/personalDataModel'
 
 export default {
   components: {
+    [PageTitle.name]: PageTitle,
     [BackNextButton.name]: BackNextButton
   },
 
@@ -161,6 +165,7 @@ export default {
     form: new PersonalDataModel(),
     back: 'Dashboard',
     next: 'Address',
+    title: 'Dados Pessoais',
     genders: ['MASCULINO', 'FEMININO'],
     schoolTerms: ['MANHÃ', 'TARDE', 'INTEGRAL', 'SEM PERÍODO'],
     yesNo: ['SIM', 'NÃO'],

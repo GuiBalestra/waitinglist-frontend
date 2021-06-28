@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <b-navbar toggleable="sm" type="dark" variant="info" class="nav">
-    <b-navbar-brand href="#">ABDA</b-navbar-brand>
+    <b-navbar-brand href="/">ABDA</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -24,6 +24,7 @@ export default {
   .header {
     grid-area: header;
     display: flex;
+    align-items: center;
     background: var(--dark-low);
   }
 
