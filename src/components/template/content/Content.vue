@@ -1,12 +1,14 @@
 <template>
-  <b-container class="content">
-    <router-view />
-  </b-container>
+  <main fluid class="content">
+    <transition name="slide" mode="out-in">
+      <router-view />
+    </transition>
+  </main>
 </template>
 
 <script>
 export default {
-  name: 'Content'
+  name: 'Content',
 }
 </script>
 
@@ -14,6 +16,26 @@ export default {
   .content {
     grid-area: content;
     margin: 30px 0;
-    width: 100vw;
+  }
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform 0.5s, opacity 0.3s ease;
+  }
+
+  .slide-enter {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+
+  .slide-leave-to {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+
+  .slide-leave,
+  .slide-enter-to {
+    transform : translateX(0);
+    opacity: 1;
   }
 </style>

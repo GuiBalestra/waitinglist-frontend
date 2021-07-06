@@ -39,7 +39,7 @@
         </b-form-select>
       </b-form-group>
     </b-form>
-    <BackSaveButton 
+    <BackSaveButton
       :back="back"
       :sendedForm="sendedForm"
     />

@@ -11,7 +11,8 @@ export default class Form {
     birthDate,
     schoolTerm,
     hasDisability,
-    deficiency,
+    disabilityDescription,
+    cid,
     observations
   } = {}) {
     this.id = id || GuidUtils.emptyGuid,
@@ -23,7 +24,8 @@ export default class Form {
     this.birthDate = birthDate,
     this.schoolTerm = schoolTerm,
     this.hasDisability = hasDisability,
-    this.deficiency = deficiency,
+    this.disabilityDescription = disabilityDescription,
+    this.cid = cid,
     this.observations = observations
   }
 }

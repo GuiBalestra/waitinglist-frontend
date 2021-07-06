@@ -29,6 +29,6 @@ export default {
   }
 
   .nav {
-    width: 100vw;
+    width: 100%;
   }
 </style>

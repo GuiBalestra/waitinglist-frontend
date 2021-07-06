@@ -1,5 +1,5 @@
 <template>
-  <div class="view">
+  <div class="grid">
     <Navbar />
     <Content />
     <Footer />
@@ -23,16 +23,16 @@ export default {
 </script>
 
 <style>
-  .view {
+  .grid {
     display: grid;
     grid-template-rows: 50px 1fr 30px;
-    grid-auto-columns: 1fr;
-    grid-template-areas: 
+    grid-template-columns: 1fr;
+    grid-template-areas:
       'header'
       'content'
       'footer';
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: var(--dark-medium);
   }
 </style>

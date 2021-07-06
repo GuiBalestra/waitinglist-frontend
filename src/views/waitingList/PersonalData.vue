@@ -115,15 +115,41 @@
             <b-form-select-option :value="undefined" disabled>Alguma deficiência?</b-form-select-option>
           </template>
         </b-form-select>
+      </b-form-group>
 
+      <b-form-group
+        id="input-group-8"
+        label="Qual o CID?"
+        label-for="cid"
+        class="mb-3"
+        v-if="showDeficiency"
+      >
+        <b-form-select
+          id="cid"
+          v-model="form.cid"
+          :options="cids"
+          required
+        >
+          <template v-slot:first>
+            <b-form-select-option :value="undefined" disabled>CID</b-form-select-option>
+          </template>
+        </b-form-select>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-9"
+        label="Qual deficiência"
+        label-for="disease"
+        class="mb-3"
+        v-if="showDeficiency"
+      >
         <b-form-textarea
           id="disease"
-          v-model="form.deficiency"
-          placeholder="Se sim, qual deficiência e CID?"
+          v-model="form.disabilityDescription"
+          placeholder="Se sim, qual deficiência?"
           rows="3"
           max-rows="6"
           class="mt-3"
-          v-if="showDeficiency"
         ></b-form-textarea>
       </b-form-group>
 
@@ -143,7 +169,7 @@
       </b-form-group>
     </b-form>
 
-    <BackNextButton 
+    <BackNextButton
       :back="back"
       :next="next"
     />
@@ -169,6 +195,7 @@ export default {
     genders: ['MASCULINO', 'FEMININO'],
     schoolTerms: ['MANHÃ', 'TARDE', 'INTEGRAL', 'SEM PERÍODO'],
     yesNo: ['SIM', 'NÃO'],
+    cids: ['1 - DEFICIÊNCIA FÍSICA', '2 - DEFICIÊNCIA MENTAL']
   }),
 
   computed: {
@@ -178,6 +205,16 @@ export default {
       }
 
       return false
+    }
+  },
+
+  created() {
+    this.clearForm()
+  },
+
+  methods: {
+    clearForm() {
+      this.form = new PersonalDataModel()
     }
   }
 }

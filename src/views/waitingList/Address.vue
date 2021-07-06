@@ -79,7 +79,7 @@
       </b-form-group>
     </b-form>
 
-    <BackNextButton 
+    <BackNextButton
       :back="back"
       :next="next"
     />
