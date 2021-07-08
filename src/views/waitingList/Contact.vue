@@ -2,100 +2,127 @@
   <b-container>
     <PageTitle :title="title" />
 
-    <b-form>
-      <b-form-group
-        id="input-group-1"
-        label="Tipo de contato"
-        label-for="contactType"
-        class="mb-3"
-      >
-        <b-form-select
-          id="contactType"
-          v-model="form.contactType"
-          :options="contactTypes"
-          required
-        >
-          <template v-slot:first>
-            <b-form-select-option :value="undefined" disabled>Tipo de contato</b-form-select-option>
-          </template>
-        </b-form-select>
-      </b-form-group>
+    <ValidationObserver ref="observer">
+      <b-form>
+        <ValidationProvider name="Tipo de Contato" rules="required" v-slot="validationContext">
+          <b-form-group
+            id="input-group-16"
+            label="Tipo de contato"
+            label-for="contactType"
+            class="mb-3"
+          >
+            <b-form-select
+              id="contactType"
+              v-model="form.contactType"
+              :options="contactTypes"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-16-live-feedback"
+            >
+              <template v-slot:first>
+                <b-form-select-option :value="undefined" disabled>Tipo de contato</b-form-select-option>
+              </template>
+            </b-form-select>
+            <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
 
-      <b-form-group
-        id="input-group-2"
-        label="Contato"
-        label-for="name"
-        class="mb-3"
-      >
-        <b-form-input
-          id="name"
-          v-model="form.name"
-          type="text"
-          placeholder="Nome do contato"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <ValidationProvider name="Nome" rules="required|alpha_spaces" v-slot="validationContext">
+          <b-form-group
+            id="input-group-17"
+            label="Contato"
+            label-for="name"
+            class="mb-3"
+          >
+            <b-form-input
+              id="name"
+              v-model="form.name"
+              type="text"
+              placeholder="Nome do contato"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-17-live-feedback"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-17-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
 
-      <b-form-group
-        id="input-group-3"
-        label="Telefone 1"
-        label-for="phone1"
-        class="mb-3"
-      >
-        <b-form-input
-          id="phone1"
-          v-model="form.phone1"
-          type="text"
-          placeholder="Telefone 1"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <ValidationProvider name="Telefone 1" rules="required" v-slot="validationContext">
+          <b-form-group
+            id="input-group-18"
+            label="Telefone 1"
+            label-for="phone1"
+            class="mb-3"
+          >
+            <b-form-input
+              id="phone1"
+              v-model="form.phone1"
+              type="text"
+              placeholder="(14) 3202-9259"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-18-live-feedback"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-18-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
 
-      <b-form-group
-        id="input-group-4"
-        label="Telefone 2"
-        label-for="phone2"
-        class="mb-3"
-      >
-        <b-form-input
-          id="phone2"
-          v-model="form.phone2"
-          type="text"
-          placeholder="Telefone 2"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <ValidationProvider name="Telefone 2" rules="required" v-slot="validationContext">
+          <b-form-group
+            id="input-group-19"
+            label="Telefone 2"
+            label-for="phone2"
+            class="mb-3"
+          >
+            <b-form-input
+              id="phone2"
+              v-model="form.phone2"
+              type="text"
+              placeholder="(##) ####-####"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-19-live-feedback"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-19-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
 
-      <b-form-group
-        id="input-group-5"
-        label="Telefone 3"
-        label-for="phone3"
-        class="mb-3"
-      >
-        <b-form-input
-          id="phone3"
-          v-model="form.phone3"
-          type="text"
-          placeholder="Telefone 3"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <ValidationProvider name="Telefone 3" rules="required" v-slot="validationContext">
+          <b-form-group
+            id="input-group-20"
+            label="Telefone 3"
+            label-for="phone3"
+            class="mb-3"
+          >
+            <b-form-input
+              id="phone3"
+              v-model="form.phone3"
+              type="text"
+              placeholder="(##) ####-####"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-20-live-feedback"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-20-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
 
-      <b-form-group
-        id="input-group-5"
-        label="E-mail"
-        label-for="email"
-        class="mb-3"
-      >
-        <b-form-input
-          id="email"
-          v-model="form.email"
-          type="email"
-          placeholder="E-mail"
-          required
-        ></b-form-input>
-      </b-form-group>
-    </b-form>
+        <ValidationProvider name="E-mail" rules="required|email" v-slot="validationContext">
+          <b-form-group
+            id="input-group-21"
+            label="E-mail"
+            label-for="email"
+            class="mb-3"
+          >
+            <b-form-input
+              id="email"
+              v-model="form.email"
+              type="email"
+              placeholder="meuemail@email.com"
+              :state="getValidationState(validationContext)"
+              aria-describedby="input-21-live-feedback"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-21-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+          </b-form-group>
+        </ValidationProvider>
+      </b-form>
+    </ValidationObserver>
+
     <BackNextButton
       :back="back"
       :next="next"
@@ -120,7 +147,21 @@ export default {
     next: 'WaitingList',
     title: 'Contato',
     contactTypes: ['MÃE', 'PAI', 'TIA', 'TIO', 'AVÓ', 'AVÔ', 'OUTROS']
-  })
+  }),
+
+  methods: {
+    clearForm() {
+      this.form = new Contact()
+
+      this.$nextTick(() => {
+        this.$refs.observer.reset()
+      })
+    },
+
+    getValidationState({ dirty, validated, valid = null }) {
+      return dirty || validated ? valid : null
+    }
+  }
 }
 </script>
 
