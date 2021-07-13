@@ -4,7 +4,7 @@
 
     <ValidationObserver ref="observer">
       <b-form>
-        <ValidationProvider name="CEP" vid="cep" rules="required|max:8" v-slot="validationContext">
+        <ValidationProvider name="CEP" vid="cep" rules="required|min:9|max:9" v-slot="validationContext">
           <b-form-group
             id="input-group-11"
             label="CEP"
@@ -15,7 +15,8 @@
               id="cep"
               v-model="form.cep"
               type="text"
-              placeholder="17054686"
+              v-mask="['#####-###']"
+              placeholder="17054-686"
               :state="getValidationState(validationContext)"
               aria-describedby="input-11-live-feedback"
             ></b-form-input>
@@ -37,6 +38,7 @@
               placeholder="Bauru"
               :state="getValidationState(validationContext)"
               aria-describedby="input-12-live-feedback"
+              disabled
             ></b-form-input>
             <b-form-invalid-feedback id="input-12-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
           </b-form-group>
@@ -56,6 +58,7 @@
               placeholder="Jardim Solange"
               :state="getValidationState(validationContext)"
               aria-describedby="input-13-live-feedback"
+              disabled
             ></b-form-input>
             <b-form-invalid-feedback id="input-13-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
           </b-form-group>
@@ -75,6 +78,7 @@
               placeholder="Fábio Geraldo"
               :state="getValidationState(validationContext)"
               aria-describedby="input-14-live-feedback"
+              disabled
             ></b-form-input>
             <b-form-invalid-feedback id="input-14-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
           </b-form-group>

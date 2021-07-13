@@ -45,10 +45,10 @@
           </b-form-group>
         </ValidationProvider>
 
-        <ValidationProvider name="Telefone 1" rules="required" v-slot="validationContext">
+        <ValidationProvider name="Telefone 1" rules="required|min:14|max:15" v-slot="validationContext">
           <b-form-group
             id="input-group-18"
-            label="Telefone 1"
+            label="Fone/Cel 1"
             label-for="phone1"
             class="mb-3"
           >
@@ -56,6 +56,7 @@
               id="phone1"
               v-model="form.phone1"
               type="text"
+              v-mask="['(##) ####-####', '(##) #####-####']"
               placeholder="(14) 3202-9259"
               :state="getValidationState(validationContext)"
               aria-describedby="input-18-live-feedback"
@@ -64,10 +65,10 @@
           </b-form-group>
         </ValidationProvider>
 
-        <ValidationProvider name="Telefone 2" rules="required" v-slot="validationContext">
+        <ValidationProvider name="Telefone 2" rules="required|min:14|max:15" v-slot="validationContext">
           <b-form-group
             id="input-group-19"
-            label="Telefone 2"
+            label="Fone/Cel 2"
             label-for="phone2"
             class="mb-3"
           >
@@ -75,7 +76,8 @@
               id="phone2"
               v-model="form.phone2"
               type="text"
-              placeholder="(##) ####-####"
+              v-mask="['(##) ####-####', '(##) #####-####']"
+              placeholder="(14) 3202-9259"
               :state="getValidationState(validationContext)"
               aria-describedby="input-19-live-feedback"
             ></b-form-input>
@@ -83,10 +85,10 @@
           </b-form-group>
         </ValidationProvider>
 
-        <ValidationProvider name="Telefone 3" rules="required" v-slot="validationContext">
+        <ValidationProvider name="Telefone 3" rules="required|min:14|max:15" v-slot="validationContext">
           <b-form-group
             id="input-group-20"
-            label="Telefone 3"
+            label="Fone/Cel 3"
             label-for="phone3"
             class="mb-3"
           >
@@ -94,7 +96,8 @@
               id="phone3"
               v-model="form.phone3"
               type="text"
-              placeholder="(##) ####-####"
+              v-mask="['(##) ####-####', '(##) #####-####']"
+              placeholder="(14) 3202-9259"
               :state="getValidationState(validationContext)"
               aria-describedby="input-20-live-feedback"
             ></b-form-input>

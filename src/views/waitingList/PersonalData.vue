@@ -60,7 +60,7 @@
                 <b-form-select-option :value="undefined" disabled>Gênero</b-form-select-option>
               </template>
             </b-form-select>
-            <b-form-invalid-feedback id="input-3-live-feedback">{{ validationContext.errors[0]}}</b-form-invalid-feedback>
+            <b-form-invalid-feedback id="input-3-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
           </b-form-group>
         </ValidationProvider>
 
@@ -83,7 +83,7 @@
           </b-form-group>
         </ValidationProvider>
 
-        <ValidationProvider name="CPF" rules="required|alpha_num|max:11" v-slot="validationContext">
+        <ValidationProvider name="CPF" rules="required|min:13|max:13" v-slot="validationContext">
           <b-form-group
             id="input-group-5"
             label="CPF da criança"
@@ -94,7 +94,8 @@
               id="cpf"
               v-model="form.cpf"
               type="text"
-              placeholder="CPF da criança"
+              v-mask="['###.###.###-#']"
+              placeholder="###.###.###-#"
               :state="getValidationState(validationContext)"
               aria-describedby="input-5-live-feedback"
             ></b-form-input>
@@ -272,7 +273,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
   label::after {
     content: ' *';
     color: red;
