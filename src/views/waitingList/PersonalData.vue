@@ -84,7 +84,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="CPF" rules="required|min:13|max:13" v-slot="validationContext">
+          <ValidationProvider name="CPF" rules="required|min:13|max:14" v-slot="validationContext">
             <b-form-group
               id="input-group-5"
               label="CPF da criança"
@@ -95,8 +95,8 @@
                 id="cpf"
                 v-model="form.cpf"
                 type="text"
-                v-mask="['###.###.###-#']"
-                placeholder="###.###.###-#"
+                v-mask="['###.###.###-##']"
+                placeholder="###.###.###-##"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-5-live-feedback"
               ></b-form-input>
@@ -216,7 +216,6 @@
       </ValidationObserver>
     </b-jumbotron>
 
-
     <BackNextButton
       :back="back"
       :next="next"
@@ -227,7 +226,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
-import PersonalDataModel from '@/shared/models/personalDataModel'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -236,19 +235,22 @@ export default {
   },
 
   data: () => ({
-    form: new PersonalDataModel(),
     back: 'Dashboard',
     next: 'Address',
-    title: 'Dados Pessoais',
-    genders: ['MASCULINO', 'FEMININO'],
-    schoolTerms: ['MANHÃ', 'TARDE', 'INTEGRAL', 'SEM PERÍODO'],
-    yesNo: ['SIM', 'NÃO'],
-    cids: ['1 - DEFICIÊNCIA FÍSICA', '2 - DEFICIÊNCIA MENTAL']
+    title: 'Dados Pessoais'
   }),
 
   computed: {
+    ...mapState({
+      form: 'personalData',
+      genders: 'genders',
+      schoolTerms: 'schoolTerms',
+      yesNo: 'yesNo',
+      cids: 'cids'
+    }),
+
     showDeficiency() {
-      if (this.form.hasDisability === 'SIM') {
+      if (this.form.hasDisability === 1) {
         return true
       }
 
@@ -262,7 +264,7 @@ export default {
 
   methods: {
     clearForm() {
-      this.form = new PersonalDataModel()
+      // this.form = new PersonalDataModel()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()

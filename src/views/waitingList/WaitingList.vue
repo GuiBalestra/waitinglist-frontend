@@ -61,8 +61,8 @@
 
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import ModalityLocalTraining from '@/shared/models/modalityLocalTraining'
 import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -71,17 +71,22 @@ export default {
   },
 
   data: () => ({
-    form: new ModalityLocalTraining(),
     back: 'Contact',
     sendedForm: 'SendedForm',
-    title: 'Local e Modalidade',
-    localTrainings: [],
-    modalities: []
+    title: 'Local e Modalidade'
   }),
+
+  computed: {
+    ...mapState({
+      form: 'modalityLocalTraining',
+      localTrainings: 'localTrainings',
+      modalities: 'modalities'
+    })
+  },
 
   methods: {
     clearForm() {
-      this.form = new ModalityLocalTraining()
+      // this.form = new ModalityLocalTraining()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()

@@ -39,7 +39,6 @@
                 placeholder="Bauru"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-12-live-feedback"
-                disabled
               ></b-form-input>
               <b-form-invalid-feedback id="input-12-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -59,7 +58,6 @@
                 placeholder="Jardim Solange"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-13-live-feedback"
-                disabled
               ></b-form-input>
               <b-form-invalid-feedback id="input-13-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -79,7 +77,6 @@
                 placeholder="Fábio Geraldo"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-14-live-feedback"
-                disabled
               ></b-form-input>
               <b-form-invalid-feedback id="input-14-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -117,7 +114,7 @@
 <script>
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import Address from '@/shared/models/address'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -126,15 +123,21 @@ export default {
   },
 
   data: () => ({
-    form: new Address(),
     back: 'PersonalData',
     next: 'Contact',
     title: 'Endereço'
   }),
 
+  computed: {
+    ...mapState({
+      form: 'address',
+      cep: 'cep'
+    })
+  },
+
   methods: {
     clearForm() {
-      this.form = new Address()
+      // this.form = new Address()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()
