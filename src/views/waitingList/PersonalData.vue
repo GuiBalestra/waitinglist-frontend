@@ -214,8 +214,6 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
-
-      <b-button @click="fillPersonalData">Preencher Form</b-button>
     </b-jumbotron>
 
     <BackNextButton
@@ -268,13 +266,8 @@ export default {
 
   methods: {
     ...mapMutations('personalDataModule', [
-      'setPersonalData',
       'clearPersonalData'
     ]),
-
-    fillPersonalData() {
-      this.setPersonalData(this.getPersonalData)
-    },
 
     clearForm() {
       this.clearPersonalData(this.form)

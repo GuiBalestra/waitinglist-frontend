@@ -16,8 +16,6 @@ const getters = {
 }
 
 const mutations = {
-  setPersonalData: (state, payload) => state.personalData.name = payload.name,
-
   clearPersonalData: state => {
     state.personalData = new PersonalDataModel()
     return state.personalData
