@@ -138,7 +138,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -153,15 +153,23 @@ export default {
   }),
 
   computed: {
-    ...mapState({
+    ...mapState('contactModule', {
       form: 'contact',
       contactTypes: 'contactTypes'
     })
   },
 
+  created() {
+    this.clearForm()
+  },
+
   methods: {
+    ...mapMutations('contactModule', [
+      'clearContact'
+    ]),
+
     clearForm() {
-      // this.form = new Contact()
+      this.clearContact(this.form)
 
       this.$nextTick(() => {
         this.$refs.observer.reset()

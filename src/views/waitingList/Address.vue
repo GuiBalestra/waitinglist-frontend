@@ -114,7 +114,7 @@
 <script>
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -129,15 +129,23 @@ export default {
   }),
 
   computed: {
-    ...mapState({
+    ...mapState('addressModule', {
       form: 'address',
       cep: 'cep'
     })
   },
 
+  created(){
+    this.clearForm()
+  },
+
   methods: {
+    ...mapMutations('addressModule', [
+      'clearAddress'
+    ]),
+
     clearForm() {
-      // this.form = new Address()
+      this.clearAddress(this.form)
 
       this.$nextTick(() => {
         this.$refs.observer.reset()

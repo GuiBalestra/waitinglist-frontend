@@ -14,7 +14,7 @@
             >
               <b-form-select
                 id="localTraining"
-                v-model="form.localTraining"
+                v-model="form.localTrainingName"
                 :options="localTrainings"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-22-live-feedback"
@@ -36,7 +36,7 @@
             >
               <b-form-select
                 id="modalitity"
-                v-model="form.modalitity"
+                v-model="form.modalityName"
                 :options="modalities"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-23-live-feedback"
@@ -62,7 +62,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -77,16 +77,24 @@ export default {
   }),
 
   computed: {
-    ...mapState({
+    ...mapState('waitingListModule', {
       form: 'modalityLocalTraining',
       localTrainings: 'localTrainings',
       modalities: 'modalities'
     })
   },
 
+  created() {
+    this.clearForm()
+  },
+
   methods: {
+    ...mapMutations('waitingListModule', [
+      'clearModalityLocalTraining'
+    ]),
+
     clearForm() {
-      // this.form = new ModalityLocalTraining()
+      this.clearModalityLocalTraining(this.form)
 
       this.$nextTick(() => {
         this.$refs.observer.reset()

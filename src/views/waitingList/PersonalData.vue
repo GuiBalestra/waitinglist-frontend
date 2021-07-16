@@ -214,6 +214,8 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
+
+      <b-button @click="fillPersonalData">Preencher Form</b-button>
     </b-jumbotron>
 
     <BackNextButton
@@ -226,7 +228,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -241,13 +243,15 @@ export default {
   }),
 
   computed: {
-    ...mapState({
+    ...mapState('personalDataModule', {
       form: 'personalData',
       genders: 'genders',
       schoolTerms: 'schoolTerms',
       yesNo: 'yesNo',
       cids: 'cids'
     }),
+
+    ...mapGetters('personalDataModule', ['getPersonalData']),
 
     showDeficiency() {
       if (this.form.hasDisability === 1) {
@@ -263,8 +267,17 @@ export default {
   },
 
   methods: {
+    ...mapMutations('personalDataModule', [
+      'setPersonalData',
+      'clearPersonalData'
+    ]),
+
+    fillPersonalData() {
+      this.setPersonalData(this.getPersonalData)
+    },
+
     clearForm() {
-      // this.form = new PersonalDataModel()
+      this.clearPersonalData(this.form)
 
       this.$nextTick(() => {
         this.$refs.observer.reset()
