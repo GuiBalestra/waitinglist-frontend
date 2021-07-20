@@ -11,7 +11,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <router-link active-class="active" class="nav-link" :to="{ name: 'Links' }">Links</router-link>
+          <router-link active-class="active" class="nav-link" :to="{ name: 'Infos' }">Informações</router-link>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

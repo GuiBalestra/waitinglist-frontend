@@ -19,10 +19,10 @@ const WizardRoutes = [
     component: () => import('@/views/waitingList/Contact.vue')
   },
   {
-    path: '/lista-de-espera',
-    meta: { title: 'Lista de Espera' },
-    name: 'WaitingList',
-    component: () => import('@/views/waitingList/WaitingList.vue')
+    path: '/local-e-modalidade',
+    meta: { title: 'Local e Modalidade' },
+    name: 'ModalityLocalTraining',
+    component: () => import('@/views/waitingList/ModalityLocalTraining.vue')
   },
   {
     path: '/formulario-enviado',

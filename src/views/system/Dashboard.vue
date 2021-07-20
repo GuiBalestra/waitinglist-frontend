@@ -3,6 +3,9 @@
     <router-link :to="{ name: 'PersonalData' }">
       <b-button>Iniciar</b-button>
     </router-link>
+    <router-link :to="{ name: 'Wizard' }" class="mt-5">
+      <b-button>Wizard</b-button>
+    </router-link>
   </b-container>
 </template>
 

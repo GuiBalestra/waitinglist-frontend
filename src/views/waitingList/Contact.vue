@@ -148,7 +148,7 @@ export default {
 
   data: () => ({
     back: 'Address',
-    next: 'WaitingList',
+    next: 'ModalityLocalTraining',
     title: 'Contato'
   }),
 

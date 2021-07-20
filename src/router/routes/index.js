@@ -1,7 +1,8 @@
 import Dashboard from '@/views/system/Dashboard.vue'
 import WizardRoutes from './formWizard/wizard'
 import NotFound from '@/views/system/404.vue'
-import Links from '@/views/system/Links.vue'
+import Infos from '@/views/system/Infos.vue'
+import WizardTest from '@/views/system/WizardTest'
 
 const Routes = [
   {
@@ -12,10 +13,16 @@ const Routes = [
   },
   ...WizardRoutes,
   {
-    path: '/fale-conosco',
-    component: Links,
-    name: 'Links',
-    meta: { title: 'Fale conosco' }
+    path: '/informacoes',
+    component: Infos,
+    name: 'Infos',
+    meta: { title: 'Informações' }
+  },
+  {
+    path: '/wizard',
+    component: WizardTest,
+    name: 'Wizard',
+    meta: { title: 'Wizard' }
   },
   {
     path: '*',
