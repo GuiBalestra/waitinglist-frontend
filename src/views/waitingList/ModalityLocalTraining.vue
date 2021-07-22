@@ -85,7 +85,7 @@ export default {
   },
 
   created() {
-    this.clearForm()
+
   },
 
   methods: {
@@ -104,6 +104,33 @@ export default {
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null
     }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    if(from.name === 'Contact') {
+      return next(vm => vm.clearForm())
+    }
+
+    return next(false)
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if(to.name === 'SendedForm') {
+      this.$refs.observer.validate()
+        .then(valid => {
+          this.$bvToast.toast('Preencha todos os campos para avançar.', {
+            title: 'Erro',
+            variant: 'danger',
+            autoHideDelay: 2000
+          })
+
+          if(valid) return next()
+        })
+
+      return next(false)
+    }
+
+    return next()
   }
 }
 </script>

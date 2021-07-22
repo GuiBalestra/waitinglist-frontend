@@ -1,7 +1,7 @@
 <template>
   <b-container>
-    <b-row class="inline-btn">
-      <router-link :to="{ name: back }">
+    <b-row :class="classButton">
+      <router-link :to="{ name: back }" v-if="showBackBtn">
         <b-button class="back-button">Voltar</b-button>
       </router-link>
 
@@ -25,12 +25,30 @@ export default {
       type: String,
       required: true
     }
+  },
+
+  computed: {
+    classButton() {
+      if(this.back === 'Dashboard') return 'one-btn'
+
+      return 'two-inline-btn'
+    },
+
+    showBackBtn() {
+      if(this.back === 'Dashboard') return false
+
+      return true
+    }
   }
 }
 </script>
 
 <style>
-  .inline-btn {
+  .one-btn {
+    justify-content: flex-end;
+  }
+
+  .two-inline-btn {
     justify-content: space-between;
   }
 </style>
