@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <b-navbar toggleable="sm" type="dark" variant="info" class="nav">
+    <b-navbar toggleable="sm" type="dark" class="nav">
       <router-link :to="{ name: 'Dashboard' }">
         <b-navbar-brand>
           <img src="../../../assets/images/logo.png" alt="abda_logo">
@@ -33,6 +33,7 @@ export default {
 
   .nav {
     width: 100%;
+    background: #00AEEF;
   }
 
   img {
