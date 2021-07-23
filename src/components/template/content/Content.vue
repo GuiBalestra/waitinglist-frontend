@@ -16,6 +16,7 @@ export default {
   .content {
     grid-area: content;
     margin: 30px 0;
+    max-width: 100vw;
   }
 
   .slide-enter-active,

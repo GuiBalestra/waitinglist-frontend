@@ -6,7 +6,7 @@ const state = {
 }
 
 const getters = {
-
+  getAddress: state => state.address
 }
 
 const mutations = {

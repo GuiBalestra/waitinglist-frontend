@@ -8,6 +8,8 @@
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 
 export default {
+  name: 'SendedForm',
+
   components: {
     [PageTitle.name]: PageTitle
   },

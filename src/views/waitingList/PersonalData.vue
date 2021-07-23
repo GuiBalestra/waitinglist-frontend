@@ -229,6 +229,8 @@ import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
+  name: 'PersonalTraining',
+
   components: {
     [PageTitle.name]: PageTitle,
     [BackNextButton.name]: BackNextButton
@@ -288,8 +290,7 @@ export default {
     }
 
     if(from.name === 'Address') {
-      // carregar getter
-      return next()
+      return next(vm => vm.getPersonalData)
     }
 
     return next(false)

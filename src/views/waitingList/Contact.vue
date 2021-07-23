@@ -5,10 +5,10 @@
     <b-jumbotron>
       <ValidationObserver ref="observer">
         <b-form>
-          <ValidationProvider name="Tipo de Contato" rules="required" v-slot="validationContext">
+          <ValidationProvider name="Tipo do Contato" rules="required" v-slot="validationContext">
             <b-form-group
               id="input-group-16"
-              label="Tipo de contato"
+              label="Tipo do contato"
               label-for="contactType"
               class="mb-3"
             >
@@ -20,7 +20,7 @@
                 aria-describedby="input-16-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Tipo de contato</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>Tipo do contato</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -126,6 +126,21 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
+      <div class="d-flex justify-content-end">
+        <b-button
+          variant="success"
+          class="mt-3"
+          @click="addContact"
+        >
+          Adicionar
+        </b-button>
+      </div>
+
+      <TableList
+        :items="contacts"
+        :fields="fields"
+        :emptyText="emptyText"
+      />
     </b-jumbotron>
 
     <BackNextButton
@@ -138,24 +153,56 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
+import TableList from '@/components/tableList/TableList.vue'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  name: 'Contact',
+
   components: {
     [PageTitle.name]: PageTitle,
-    [BackNextButton.name]: BackNextButton
+    [BackNextButton.name]: BackNextButton,
+    [TableList.name]: TableList
   },
 
   data: () => ({
     back: 'Address',
     next: 'ModalityLocalTraining',
-    title: 'Contato'
+    title: 'Contato',
+    emptyText: 'Nenhum contato foi adicionado.',
+    fields: [
+      {
+        key: 'name',
+        label: 'Nome'
+      },
+      {
+        key: 'contactType',
+        label: 'Tipo do Contato'
+      },
+      {
+        key: 'phone1',
+        label: 'Fone1'
+      },
+      {
+        key: 'phone2',
+        label: 'Fone2'
+      },
+      {
+        key: 'phone3',
+        label: 'Fone3'
+      },
+       {
+        key: 'email',
+        label: 'E-mail'
+      },
+    ]
   }),
 
   computed: {
     ...mapState('contactModule', {
       form: 'contact',
-      contactTypes: 'contactTypes'
+      contactTypes: 'contactTypes',
+      contacts: 'contacts'
     })
   },
 
@@ -178,6 +225,10 @@ export default {
 
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null
+    },
+
+    addContact() {
+      this.contacts.push(this.form)
     }
   },
 
@@ -187,8 +238,7 @@ export default {
     }
 
     if(from.name === 'ModalityLocalTraining') {
-      //carregar getter
-      return next()
+      return next(vm => vm.contacts)
     }
 
     return next(false)

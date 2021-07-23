@@ -3,15 +3,17 @@ import ModalityLocalTrainingModel from '@/shared/models/modalityLocalTraining'
 const state = {
   modalityLocalTraining: new ModalityLocalTrainingModel(),
   localTrainings: ['Arena', 'Hípica'],
-  modalities: ['Natação', 'Polo']
+  modalities: ['Natação', 'Polo'],
+  modalitiesLocals: []
 }
 
 const getters = {
-
+  getModalitiesLocals: state => state.modalitiesLocals
 }
 
 const mutations = {
-  clearModalityLocalTraining: state => state.modalityLocalTraining = new ModalityLocalTrainingModel()
+  clearModalityLocalTraining: state => state.modalityLocalTraining = new ModalityLocalTrainingModel(),
+  clearModalitiesLocals: state => state.modalitiesLocals = []
 }
 
 const actions = {

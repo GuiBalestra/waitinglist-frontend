@@ -114,9 +114,11 @@
 <script>
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
+  name: 'Address',
+
   components: {
     [BackNextButton.name]: BackNextButton,
     [PageTitle.name]: PageTitle
@@ -132,7 +134,11 @@ export default {
     ...mapState('addressModule', {
       form: 'address',
       cep: 'cep'
-    })
+    }),
+
+    ...mapGetters('addressModule', [
+      'getAddress'
+    ])
   },
 
   created(){
@@ -163,8 +169,7 @@ export default {
     }
 
     if(from.name === 'Contact') {
-      // carregar getter
-      return next()
+      return next(vm => vm.getAddress)
     }
 
     return next(false)

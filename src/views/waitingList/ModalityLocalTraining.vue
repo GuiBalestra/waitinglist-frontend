@@ -50,6 +50,21 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
+      <div class="d-flex justify-content-end">
+        <b-button
+          variant="success"
+          class="mt-3"
+          @click="addModalityByLocal"
+        >
+          Adicionar
+        </b-button>
+      </div>
+
+      <TableList
+        :items="modalitiesLocals"
+        :fields="fields"
+        :emptyText="emptyText"
+      />
     </b-jumbotron>
 
     <BackSaveButton
@@ -62,26 +77,46 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
-import { mapState, mapMutations } from 'vuex'
+import TableList from '@/components/tableList/TableList.vue'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
+  name: 'ModalityLocalTraining',
+
   components: {
     [PageTitle.name]: PageTitle,
-    [BackSaveButton.name]: BackSaveButton
+    [BackSaveButton.name]: BackSaveButton,
+    [TableList.name]: TableList
   },
 
   data: () => ({
     back: 'Contact',
     sendedForm: 'SendedForm',
-    title: 'Local e Modalidade'
+    title: 'Local e Modalidade',
+    emptyText: 'Nenhuma modalidade por local de treinamento foi adicionada.',
+    fields: [
+      {
+        key: 'modalityName',
+        label: 'Modalidade'
+      },
+      {
+        key: 'localTrainingName',
+        label: 'Local de treinamento'
+      }
+    ]
   }),
 
   computed: {
-    ...mapState('waitingListModule', {
+    ...mapState('modalityLocalTrainingModule', {
       form: 'modalityLocalTraining',
       localTrainings: 'localTrainings',
-      modalities: 'modalities'
-    })
+      modalities: 'modalities',
+      modalitiesLocals: 'modalitiesLocals'
+    }),
+
+    ...mapGetters('modalityLocalTrainingModule', [
+      'getModalitiesLocals'
+    ])
   },
 
   created() {
@@ -89,7 +124,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('waitingListModule', [
+    ...mapMutations('modalityLocalTrainingModule', [
       'clearModalityLocalTraining'
     ]),
 
@@ -103,12 +138,19 @@ export default {
 
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null
+    },
+
+    addModalityByLocal() {
+      this.modalitiesLocals.push(this.form)
     }
   },
 
   beforeRouteEnter(to, from, next) {
     if(from.name === 'Contact') {
-      return next(vm => vm.clearForm())
+      return next(vm => {
+        vm.clearForm()
+        vm.getModalitiesLocals
+      })
     }
 
     return next(false)

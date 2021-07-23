@@ -3,13 +3,13 @@ import Vuex from 'vuex'
 import personalDataModule from './modules/personalData'
 import addressModule from './modules/address'
 import contactModule from './modules/contact'
-import waitingListModule from './modules/waitingList'
+import modalityLocalTrainingModule from './modules/modalityLocalTraining'
 
 const modules = {
   personalDataModule,
   addressModule,
   contactModule,
-  waitingListModule
+  modalityLocalTrainingModule
 }
 
 Vue.use(Vuex)
