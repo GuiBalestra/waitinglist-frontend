@@ -313,6 +313,19 @@ export default {
     }
 
     return next()
+  },
+
+  watch: {
+    'form.hasDisability': function (val) {
+      if(val === 0) {
+        this.form.cid = undefined
+        this.form.disabilityDescription = null
+
+        this.$nextTick(() => {
+          this.$refs.observer.reset()
+        })
+      }
+    }
   }
 }
 </script>
