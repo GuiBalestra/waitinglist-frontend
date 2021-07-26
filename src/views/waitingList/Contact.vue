@@ -130,7 +130,7 @@
         <b-button
           variant="success"
           class="mt-3"
-          @click="addContact"
+          @click="validateAddBtn"
         >
           Adicionar
         </b-button>
@@ -191,10 +191,14 @@ export default {
         key: 'phone3',
         label: 'Fone3'
       },
-       {
+      {
         key: 'email',
         label: 'E-mail'
       },
+      {
+        key: 'actions',
+        label: 'Ações'
+      }
     ]
   }),
 
@@ -227,9 +231,39 @@ export default {
       return dirty || validated ? valid : null
     },
 
+    validateAddBtn() {
+      if(this.contacts.length >= 2) {
+        this.$bvToast.toast('Cadastro limitado a dois contatos.', {
+          title: 'Aviso',
+          variant: 'warning',
+          autoHideDelay: 2000
+        })
+
+        this.clearForm()
+        return
+      }
+
+      this.$refs.observer.validate()
+        .then(valid => {
+          if(!valid) {
+            this.$bvToast.toast('Preencha todos os campos para adicionar um contato.', {
+              title: 'Erro',
+              variant: 'danger',
+              autoHideDelay: 2000
+            })
+
+            return
+          }
+
+          this.addContact()
+        })
+    },
+
     addContact() {
-      this.contacts.push(this.form)
-    }
+      const contact = this.form
+      this.contacts.push(contact)
+      this.clearForm()
+    },
   },
 
   beforeRouteEnter(to, from, next) {
@@ -246,18 +280,21 @@ export default {
 
   beforeRouteLeave(to, from, next) {
     if(to.name === 'ModalityLocalTraining') {
-      this.$refs.observer.validate()
-        .then(valid => {
-          this.$bvToast.toast('Preencha todos os campos para avançar.', {
-            title: 'Erro',
-            variant: 'danger',
-            autoHideDelay: 2000
+
+      if(!this.contacts.length) {
+        this.$refs.observer.validate()
+          .then(() => {
+            this.$bvToast.toast('Adicione um contato.', {
+              title: 'Aviso',
+              variant: 'warning',
+              autoHideDelay: 2000
+            })
+
           })
+            return next(false)
+      }
 
-          if(valid) return next()
-        })
-
-      return next(false)
+      return next()
     }
 
     return next()

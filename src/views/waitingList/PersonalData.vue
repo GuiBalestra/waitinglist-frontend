@@ -316,7 +316,7 @@ export default {
   },
 
   watch: {
-    'form.hasDisability': function (val) {
+    'form.hasDisability'(val) {
       if(val === 0) {
         this.form.cid = undefined
         this.form.disabilityDescription = null

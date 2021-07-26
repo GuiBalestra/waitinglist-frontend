@@ -102,6 +102,10 @@ export default {
       {
         key: 'localTrainingName',
         label: 'Local de treinamento'
+      },
+      {
+        key: 'actions',
+        label: 'Ações'
       }
     ]
   }),
