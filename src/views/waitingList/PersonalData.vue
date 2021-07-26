@@ -148,7 +148,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="CID" rules="required_if:disability,SIM" v-slot="validationContext">
+          <ValidationProvider name="CID" rules="required_if:disability,1" v-slot="validationContext">
             <b-form-group
               id="input-group-8"
               label="Qual o CID?"
@@ -171,7 +171,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="Descrição da deficiência" rules="required_if:disability,SIM" v-slot="validationContext">
+          <ValidationProvider name="Descrição da deficiência" rules="required_if:disability,1" v-slot="validationContext">
             <b-form-group
               id="input-group-9"
               label="Qual deficiência?"

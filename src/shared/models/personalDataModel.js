@@ -3,7 +3,6 @@ import GuidUtils from '@/shared/utils/guid'
 export default class Form {
   constructor({
     id,
-    date,
     name,
     gender,
     rg,
@@ -16,7 +15,6 @@ export default class Form {
     observations
   } = {}) {
     this.id = id || GuidUtils.emptyGuid,
-    this.date = date,
     this.name = name,
     this.gender = gender,
     this.rg = rg,
