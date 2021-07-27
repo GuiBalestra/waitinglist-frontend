@@ -20,7 +20,7 @@
                 aria-describedby="input-16-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Tipo do contato</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>

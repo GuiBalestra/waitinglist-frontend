@@ -58,7 +58,7 @@
                 aria-describedby="input-3-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Gênero</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-3-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -119,7 +119,7 @@
                 aria-describedby="input-6-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Período escolar</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-6-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -141,7 +141,7 @@
                 aria-describedby="input-7-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Alguma deficiência?</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-7-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -164,7 +164,7 @@
                 aria-describedby="input-8-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>CID</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
