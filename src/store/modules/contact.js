@@ -12,7 +12,7 @@ const getters = {
 
 const mutations = {
   clearContact: state => state.contact = new ContactModel(),
-  clearContacts: state => state.contact = []
+  clearContacts: state => state.contacts = []
 }
 
 const actions = {
