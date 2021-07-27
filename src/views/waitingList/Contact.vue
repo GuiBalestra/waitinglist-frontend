@@ -289,9 +289,9 @@ export default {
               variant: 'warning',
               autoHideDelay: 2000
             })
-
           })
-            return next(false)
+
+        return next(false)
       }
 
       return next()

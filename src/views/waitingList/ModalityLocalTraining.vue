@@ -20,7 +20,7 @@
                 aria-describedby="input-22-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Local de treinamento</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-22-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -42,7 +42,7 @@
                 aria-describedby="input-23-live-feedback"
               >
                 <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>Modalidades</b-form-select-option>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
                 </template>
               </b-form-select>
               <b-form-invalid-feedback id="input-23-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
@@ -54,7 +54,7 @@
         <b-button
           variant="success"
           class="mt-3"
-          @click="addModalityByLocal"
+          @click="validateAddBtn"
         >
           Adicionar
         </b-button>
@@ -144,8 +144,41 @@ export default {
       return dirty || validated ? valid : null
     },
 
+    validateAddBtn() {
+      this.$refs.observer.validate()
+        .then(valid => {
+          if(!valid) {
+            this.$bvToast.toast('Preencha todos os campos para adicionar um contato.', {
+              title: 'Erro',
+              variant: 'danger',
+              autoHideDelay: 2000
+            })
+
+            return
+          }
+
+          this.addModalityByLocal()
+        })
+    },
+
     addModalityByLocal() {
-      this.modalitiesLocals.push(this.form)
+      const modalityLocal = this.form
+      let hasModalityLocal = this.modalitiesLocals.some(x =>
+        x.modalityName === modalityLocal.modalityName &&
+        x.localTrainingName === modalityLocal.localTrainingName
+      )
+
+      if(hasModalityLocal) {
+        this.clearForm()
+        return this.$bvToast.toast('Você já escolheu este local e modalidade.', {
+                  title: 'Aviso',
+                  variant: 'warning',
+                  autoHideDelay: 2000
+                })
+      }
+
+      this.modalitiesLocals.push(modalityLocal)
+      this.clearForm()
     }
   },
 
@@ -162,18 +195,20 @@ export default {
 
   beforeRouteLeave(to, from, next) {
     if(to.name === 'SendedForm') {
-      this.$refs.observer.validate()
-        .then(valid => {
-          this.$bvToast.toast('Preencha todos os campos para avançar.', {
-            title: 'Erro',
-            variant: 'danger',
-            autoHideDelay: 2000
+      if(!this.modalitiesLocals.length) {
+        this.$refs.observer.validate()
+          .then(() => {
+            this.$bvToast.toast('Adicione uma modalidade por um local de treinamento.', {
+              title: 'Erro',
+              variant: 'danger',
+              autoHideDelay: 2000
+            })
           })
 
-          if(valid) return next()
-        })
+        return next(false)
+      }
 
-      return next(false)
+      return next()
     }
 
     return next()
