@@ -13,7 +13,8 @@ const getters = {
 
 const mutations = {
   clearModalityLocalTraining: state => state.modalityLocalTraining = new ModalityLocalTrainingModel(),
-  clearModalitiesLocals: state => state.modalitiesLocals = []
+  clearModalitiesLocals: state => state.modalitiesLocals = [],
+  removeModalityLocal: (state, payload) => state.modalitiesLocals.splice(payload, 1)
 }
 
 const actions = {

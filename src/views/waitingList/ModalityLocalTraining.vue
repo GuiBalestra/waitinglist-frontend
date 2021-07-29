@@ -129,9 +129,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations('modalityLocalTrainingModule', [
-      'clearModalityLocalTraining'
-    ]),
+    ...mapMutations({
+      clearModalityLocalTraining: 'modalityLocalTrainingModule/clearModalityLocalTraining',
+      removeModalityLocal: 'modalityLocalTrainingModule/removeModalityLocal'
+    }),
 
     clearForm() {
       this.clearModalityLocalTraining(this.form)
@@ -183,7 +184,7 @@ export default {
     },
 
     removeModalityLocalTraining(index) {
-      this.modalitiesLocals.splice(index, 1)
+      this.removeModalityLocal(index)
     }
   },
 

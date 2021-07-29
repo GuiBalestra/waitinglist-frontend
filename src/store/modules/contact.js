@@ -12,7 +12,8 @@ const getters = {
 
 const mutations = {
   clearContact: state => state.contact = new ContactModel(),
-  clearContacts: state => state.contacts = []
+  clearContacts: state => state.contacts = [],
+  removeContact: (state, payload) => state.contacts.splice(payload, 1)
 }
 
 const actions = {

@@ -140,7 +140,7 @@
         :items="contacts"
         :fields="fields"
         :emptyText="emptyText"
-        @remove="removeContact"
+        @remove="removeContactByIndex"
       />
     </b-jumbotron>
 
@@ -216,9 +216,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations('contactModule', [
-      'clearContact'
-    ]),
+    ...mapMutations({
+      clearContact: 'contactModule/clearContact',
+      removeContact: 'contactModule/removeContact',
+    }),
 
     clearForm() {
       this.clearContact(this.form)
@@ -266,8 +267,8 @@ export default {
       this.clearForm()
     },
 
-    removeContact(index) {
-      this.contacts.splice(index, 1)
+    removeContactByIndex(index) {
+      this.removeContact(index)
     }
   },
 
