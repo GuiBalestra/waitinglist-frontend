@@ -1,6 +1,17 @@
 <template>
   <b-container>
     <PageTitle :title="title" />
+
+    <div class="centralize-items mt-5">
+      <div class="paragraph">
+        <div>Cadastro na lista de espera efetuado com sucesso!</div>
+        <div>Quando surgir a vaga desejada, notificaremos pelo telefone de contato.</div>
+      </div>
+
+      <router-link :to="{ name: 'Dashboard' }">
+        <b-button variant="secondary">Voltar para o início</b-button>
+      </router-link>
+    </div>
   </b-container>
 </template>
 
@@ -40,6 +51,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  .centralize-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
 
+    .paragraph {
+      color: var(--light-low);
+    }
+  }
 </style>
