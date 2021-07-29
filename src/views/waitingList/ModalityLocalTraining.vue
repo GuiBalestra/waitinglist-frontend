@@ -64,6 +64,7 @@
         :items="modalitiesLocals"
         :fields="fields"
         :emptyText="emptyText"
+        @remove="removeModalityLocalTraining"
       />
     </b-jumbotron>
 
@@ -179,6 +180,10 @@ export default {
 
       this.modalitiesLocals.push(modalityLocal)
       this.clearForm()
+    },
+
+    removeModalityLocalTraining(index) {
+      this.modalitiesLocals.splice(index, 1)
     }
   },
 

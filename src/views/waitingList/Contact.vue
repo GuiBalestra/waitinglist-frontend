@@ -140,6 +140,7 @@
         :items="contacts"
         :fields="fields"
         :emptyText="emptyText"
+        @remove="removeContact"
       />
     </b-jumbotron>
 
@@ -264,6 +265,10 @@ export default {
       this.contacts.push(contact)
       this.clearForm()
     },
+
+    removeContact(index) {
+      this.contacts.splice(index, 1)
+    }
   },
 
   beforeRouteEnter(to, from, next) {

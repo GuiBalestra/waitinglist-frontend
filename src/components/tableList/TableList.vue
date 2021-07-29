@@ -8,8 +8,8 @@
       hover
       show-empty
     >
-      <template v-slot:cell(actions)="{ item }">
-        <b-button class="sm" variant="danger" @click="remove(item.index)">
+      <template v-slot:cell(actions)="{ index }">
+        <b-button class="sm" variant="danger" @click="remove(index)">
           <b-icon icon="trash-fill" variant="light" />
         </b-button>
       </template>
@@ -39,8 +39,8 @@ export default {
   },
 
   methods: {
-    remove() {
-
+    remove(index) {
+      this.$emit('remove', index)
     }
   }
 }
