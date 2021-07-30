@@ -18,6 +18,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import { mapMutations } from 'vuex'
+import { mixin } from '@/shared/mixins'
 
 export default {
   name: 'SendedForm',
@@ -25,6 +26,8 @@ export default {
   components: {
     [PageTitle.name]: PageTitle
   },
+
+  mixins: [mixin],
 
   data: () => ({
     title: 'Formulário enviado'
@@ -40,8 +43,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     if(from.name === 'ModalityLocalTraining') {
       return next(vm => {
-        vm.clearContacts()
-        vm.clearModalitiesLocals()
+        vm.clearState()
       })
     }
 

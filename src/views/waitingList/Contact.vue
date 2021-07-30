@@ -156,6 +156,7 @@ import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import TableList from '@/components/tableList/TableList.vue'
 import { mapState, mapMutations } from 'vuex'
+import { mixin } from '@/shared/mixins'
 
 export default {
   name: 'Contact',
@@ -165,6 +166,8 @@ export default {
     [BackNextButton.name]: BackNextButton,
     [TableList.name]: TableList
   },
+
+  mixins: [mixin],
 
   data: () => ({
     back: 'Address',
@@ -304,8 +307,7 @@ export default {
     }
 
     if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
-      this.clearContacts()
-      this.clearModalitiesLocals()
+      this.clearState()
       return next()
     }
 

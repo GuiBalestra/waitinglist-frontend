@@ -227,6 +227,7 @@
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mixin } from '@/shared/mixins'
 
 export default {
   name: 'PersonalTraining',
@@ -235,6 +236,8 @@ export default {
     [PageTitle.name]: PageTitle,
     [BackNextButton.name]: BackNextButton
   },
+
+  mixins: [mixin],
 
   data: () => ({
     back: 'Dashboard',
@@ -310,6 +313,11 @@ export default {
         })
 
       return next(false)
+    }
+
+    if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
+      this.clearState()
+      return next()
     }
 
     return next()
