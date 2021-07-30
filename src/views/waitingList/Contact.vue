@@ -219,6 +219,8 @@ export default {
     ...mapMutations({
       clearContact: 'contactModule/clearContact',
       removeContact: 'contactModule/removeContact',
+      clearContacts: 'contactModule/clearContacts',
+      clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals'
     }),
 
     clearForm() {
@@ -299,7 +301,11 @@ export default {
 
         return next(false)
       }
+    }
 
+    if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
+      this.clearContacts()
+      this.clearModalitiesLocals()
       return next()
     }
 

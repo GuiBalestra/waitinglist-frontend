@@ -26,6 +26,7 @@ const Routes = [
   },
   {
     path: '*',
+    name: 'NotFound',
     meta: { title: 'Página não encontrada' },
     component: NotFound
   }

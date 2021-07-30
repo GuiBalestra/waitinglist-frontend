@@ -39,14 +39,13 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     if(from.name === 'ModalityLocalTraining') {
-      next(vm => {
+      return next(vm => {
         vm.clearContacts()
         vm.clearModalitiesLocals()
-        return
       })
     }
 
-    next(false)
+    return next(false)
   }
 }
 </script>
