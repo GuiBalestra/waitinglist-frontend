@@ -25,7 +25,7 @@ export default {
 <style>
   .grid {
     display: grid;
-    grid-template-rows: 55px 1fr 30px;
+    grid-template-rows: auto 1fr 30px;
     grid-template-columns: 1fr;
     grid-template-areas:
       'header'
