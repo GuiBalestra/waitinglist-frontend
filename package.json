@@ -16,11 +16,9 @@
     "lodash": "^4.17.21",
     "vee-validate": "^3.4.10",
     "vue": "^2.6.11",
-    "vue-form-wizard": "^0.8.4",
     "vue-page-title": "^1.2.4",
     "vue-router": "^3.5.2",
     "vue-the-mask": "^0.11.1",
-    "vue-themify-icons": "^1.0.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
