@@ -114,7 +114,7 @@
 <script>
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -152,6 +152,10 @@ export default {
     ...mapMutations('addressModule', [
       'clearAddress'
     ]),
+
+    ...mapActions('personalDataModule', {
+      clearAge: 'clearAge'
+    }),
 
     clearForm() {
       this.clearAddress(this.form)
@@ -196,6 +200,7 @@ export default {
 
     if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
       this.clearState()
+      this.clearAge()
       return next()
     }
 

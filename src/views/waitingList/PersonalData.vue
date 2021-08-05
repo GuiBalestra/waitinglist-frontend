@@ -38,6 +38,7 @@
                 placeholder="dd/mm/aaaa"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-2-live-feedback"
+                @blur="setAge(form.birthDate)"
               ></b-form-input>
               <b-form-invalid-feedback id="input-2-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -226,7 +227,7 @@
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -254,7 +255,10 @@ export default {
       cids: 'cids'
     }),
 
-    ...mapGetters('personalDataModule', ['getPersonalData']),
+    ...mapGetters('personalDataModule', [
+      'getPersonalData',
+      'getAge'
+      ]),
 
     showDeficiency() {
       if (this.form.hasDisability === 1) {
@@ -274,8 +278,16 @@ export default {
       'clearPersonalData'
     ]),
 
+    ...mapActions('personalDataModule', {
+      setAge: (dispatch, birthDate) => {
+        return dispatch('setAge', birthDate)
+      },
+
+      clearAge: 'clearAge'
+    }),
+
     clearForm() {
-      this.clearPersonalData(this.form)
+      this.clearPersonalData()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()
@@ -289,7 +301,10 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     if(from.name === 'Dashboard') {
-      return next(vm => vm.clearForm())
+      return next(vm => {
+        vm.clearForm()
+        vm.clearAge()
+      })
     }
 
     if(from.name === 'Address') {
@@ -317,6 +332,7 @@ export default {
 
     if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
       this.clearState()
+      this.clearAge()
       return next()
     }
 

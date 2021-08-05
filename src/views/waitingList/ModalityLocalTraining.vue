@@ -79,7 +79,7 @@
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
 import TableList from '@/components/tableList/TableList.vue'
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -137,6 +137,10 @@ export default {
       removeModalityLocal: 'modalityLocalTrainingModule/removeModalityLocal',
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals',
       clearContacts: 'contactModule/clearContacts'
+    }),
+
+    ...mapActions('personalDataModule', {
+      clearAge: 'clearAge'
     }),
 
     clearForm() {
@@ -222,6 +226,7 @@ export default {
 
     if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
       this.clearState()
+      this.clearAge()
       return next()
     }
 

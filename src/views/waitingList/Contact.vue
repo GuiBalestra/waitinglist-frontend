@@ -155,7 +155,7 @@
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import TableList from '@/components/tableList/TableList.vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -224,6 +224,10 @@ export default {
       removeContact: 'contactModule/removeContact',
       clearContacts: 'contactModule/clearContacts',
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals'
+    }),
+
+    ...mapActions('personalDataModule', {
+      clearAge: 'clearAge'
     }),
 
     clearForm() {
@@ -308,6 +312,7 @@ export default {
 
     if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound') {
       this.clearState()
+      this.clearAge()
       return next()
     }
 

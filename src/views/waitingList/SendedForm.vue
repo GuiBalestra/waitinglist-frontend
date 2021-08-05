@@ -17,7 +17,7 @@
 
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -34,9 +34,8 @@ export default {
   }),
 
   methods: {
-    ...mapMutations({
-      clearContacts: 'contactModule/clearContacts',
-      clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals'
+    ...mapActions('personalDataModule', {
+      clearAge: 'clearAge'
     })
   },
 
@@ -44,6 +43,7 @@ export default {
     if(from.name === 'ModalityLocalTraining') {
       return next(vm => {
         vm.clearState()
+        vm.clearAge()
       })
     }
 
