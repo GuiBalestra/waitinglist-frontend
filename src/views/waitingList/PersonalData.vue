@@ -66,7 +66,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="RG" rules="required|alpha_num|max:9" v-slot="validationContext">
+          <ValidationProvider name="RG" rules="required|max:12" v-slot="validationContext">
             <b-form-group
               id="input-group-4"
               label="RG da criança"
@@ -85,7 +85,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="CPF" rules="required|min:13|max:14" v-slot="validationContext">
+          <ValidationProvider name="CPF" rules="required|min:14|max:14" v-slot="validationContext">
             <b-form-group
               id="input-group-5"
               label="CPF da criança"
@@ -97,7 +97,7 @@
                 v-model="form.cpf"
                 type="text"
                 v-mask="['###.###.###-##']"
-                placeholder="###.###.###-##"
+                placeholder="123.456.789-00"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-5-live-feedback"
               ></b-form-input>
@@ -127,16 +127,16 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="Deficiência" vid="disability" rules="required" v-slot="validationContext">
+          <ValidationProvider name="Deficiência" vid="deficiency" rules="required" v-slot="validationContext">
             <b-form-group
               id="input-group-7"
               label="Possui alguma deficiência?"
-              label-for="hasDisability"
+              label-for="hasDeficiency"
               class="mb-3"
             >
               <b-form-select
-                id="hasDisability"
-                v-model="form.hasDisability"
+                id="hasDeficiency"
+                v-model="form.hasDeficiency"
                 :options="yesNo"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-7-live-feedback"
@@ -149,7 +149,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="CID" rules="required_if:disability,1" v-slot="validationContext">
+          <ValidationProvider name="CID" rules="required_if:deficiency,1" v-slot="validationContext">
             <b-form-group
               id="input-group-8"
               label="Qual o CID?"
@@ -157,38 +157,38 @@
               class="mb-3"
               v-if="showDeficiency"
             >
-              <b-form-select
+              <b-form-input
                 id="cid"
                 v-model="form.cid"
-                :options="cids"
+                type="text"
+                placeholder="Ex.: F840"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-8-live-feedback"
+                @keyup.enter="fetchCid(form.cid)"
               >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
-                </template>
-              </b-form-select>
+              </b-form-input>
               <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="Descrição da deficiência" rules="required_if:disability,1" v-slot="validationContext">
+          <ValidationProvider name="Descrição da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
             <b-form-group
               id="input-group-9"
               label="Qual deficiência?"
-              label-for="disease"
+              label-for="cidDescription"
               class="mb-3"
               v-if="showDeficiency"
             >
               <b-form-textarea
-                id="disease"
-                v-model="form.disabilityDescription"
+                id="cidDescription"
+                v-model="form.cidDescription"
                 placeholder="Se sim, qual deficiência?"
                 rows="3"
                 max-rows="6"
                 class="mt-3"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-9-live-feedback"
+                disabled
               ></b-form-textarea>
               <b-form-invalid-feedback id="input-9-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -252,7 +252,6 @@ export default {
       genders: 'genders',
       schoolTerms: 'schoolTerms',
       yesNo: 'yesNo',
-      cids: 'cids'
     }),
 
     ...mapGetters('personalDataModule', [
@@ -261,7 +260,7 @@ export default {
       ]),
 
     showDeficiency() {
-      if (this.form.hasDisability === 1) {
+      if (this.form.hasDeficiency === 1) {
         return true
       }
 
@@ -283,7 +282,13 @@ export default {
         return dispatch('setAge', birthDate)
       },
 
-      clearAge: 'clearAge'
+      clearAge: 'clearAge',
+
+      fetchCid: (dispatch, cidCode) => {
+        if (!cidCode) return
+
+        return dispatch('fetchCid', cidCode)
+      }
     }),
 
     clearForm() {
@@ -340,10 +345,10 @@ export default {
   },
 
   watch: {
-    'form.hasDisability'(val) {
+    'form.hasDeficiency'(val) {
       if(val === 0) {
-        this.form.cid = undefined
-        this.form.disabilityDescription = null
+        this.form.cid = null
+        this.form.cidDescription = null
 
         this.$nextTick(() => {
           this.$refs.observer.reset()

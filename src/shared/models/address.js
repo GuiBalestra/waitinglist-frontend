@@ -3,17 +3,21 @@ import GuidUtils from '@/shared/utils/guid'
 export default class Address {
   constructor({
     id,
-    cep,
     city,
+    cityId,
+    zipCode,
     district,
-    road,
-    number
+    street,
+    number,
+    complement
   } = {}) {
     this.id = id || GuidUtils.emptyGuid,
-    this.cep = cep,
+    this.zipCode = zipCode,
     this.city = city,
+    this.cityId = cityId,
     this.district = district
-    this.road = road,
-    this.number = number
+    this.street = street,
+    this.number = number,
+    this.complement = complement
   }
 }

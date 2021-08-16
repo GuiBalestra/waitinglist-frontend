@@ -16,6 +16,8 @@
                 id="localTraining"
                 v-model="form.localTrainingName"
                 :options="localTrainings"
+                text-field="name"
+                value-field="id"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-22-live-feedback"
               >
@@ -38,6 +40,8 @@
                 id="modalitity"
                 v-model="form.modalityName"
                 :options="modalities"
+                text-field="name"
+                value-field="id"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-23-live-feedback"
               >
@@ -128,7 +132,8 @@ export default {
   },
 
   created() {
-
+    this.fetchModalities()
+    this.fetchLocalTrainings()
   },
 
   methods: {
@@ -139,8 +144,10 @@ export default {
       clearContacts: 'contactModule/clearContacts'
     }),
 
-    ...mapActions('personalDataModule', {
-      clearAge: 'clearAge'
+    ...mapActions({
+      clearAge: 'personalDataModule/clearAge',
+      fetchModalities: 'modalityLocalTrainingModule/fetchModalities',
+      fetchLocalTrainings: 'modalityLocalTrainingModule/fetchLocalTrainings'
     }),
 
     clearForm() {

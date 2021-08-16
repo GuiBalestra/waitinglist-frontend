@@ -1,6 +1,6 @@
 import GuidUtils from '@/shared/utils/guid'
 
-export default class Form {
+export default class WaitingList {
   constructor({
     id,
     name,
@@ -12,7 +12,17 @@ export default class Form {
     hasDeficiency,
     cid,
     cidDescription,
-    observations
+    observations,
+    zipCode,
+    city,
+    cityId,
+    district,
+    street,
+    number,
+    complement,
+    contacts,
+    modalitiesLocals
+
   } = {}) {
     this.id = id || GuidUtils.emptyGuid,
     this.name = name,
@@ -24,6 +34,15 @@ export default class Form {
     this.hasDeficiency = hasDeficiency,
     this.cid = cid,
     this.cidDescription = cidDescription,
-    this.observations = observations
+    this.observations = observations,
+    this.zipCode = zipCode,
+    this.city = city,
+    this.cityId = cityId,
+    this.district = district,
+    this.street = street,
+    this.number = number,
+    this.complement = complement,
+    this.contacts = contacts,
+    this.modalitiesLocals = modalitiesLocals
   }
 }

@@ -5,18 +5,18 @@
     <b-jumbotron>
       <ValidationObserver ref="observer">
         <b-form>
-          <ValidationProvider name="CEP" vid="cep" rules="required|min:9|max:9" v-slot="validationContext">
+          <ValidationProvider name="CEP" rules="required|min:10|max:10" v-slot="validationContext">
             <b-form-group
               id="input-group-11"
               label="CEP"
-              label-for="cep"
+              label-for="zipCode"
               class="mb-3"
             >
               <b-form-input
-                id="cep"
-                v-model="form.cep"
+                id="zipCode"
+                v-model="form.zipCode"
                 type="text"
-                v-mask="['#####-###']"
+                v-mask="['##.###-###']"
                 placeholder="17054-686"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-11-live-feedback"
@@ -67,12 +67,12 @@
             <b-form-group
               id="input-group-14"
               label="Rua"
-              label-for="road"
+              label-for="street"
               class="mb-3"
             >
               <b-form-input
-                id="road"
-                v-model="form.road"
+                id="street"
+                v-model="form.street"
                 type="text"
                 placeholder="Fábio Geraldo"
                 :state="getValidationState(validationContext)"
@@ -98,6 +98,25 @@
                 aria-describedby="input-15-live-feedback"
               ></b-form-input>
               <b-form-invalid-feedback id="input-15-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+            </b-form-group>
+          </ValidationProvider>
+
+          <ValidationProvider name="Complemento" rules="required" v-slot="validationContext">
+            <b-form-group
+              id="input-group-16"
+              label="Complemento"
+              label-for="complement"
+              class="mb-3"
+            >
+              <b-form-input
+                id="complement"
+                v-model="form.complement"
+                type="text"
+                placeholder="Casa"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-16-live-feedback"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
           </ValidationProvider>
         </b-form>

@@ -16,6 +16,8 @@
                 id="contactType"
                 v-model="form.contactType"
                 :options="contactTypes"
+                text-field="name"
+                value-field="id"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-16-live-feedback"
               >
@@ -126,6 +128,7 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
+
       <div class="d-flex justify-content-end">
         <b-button
           variant="success"
@@ -215,7 +218,7 @@ export default {
   },
 
   created() {
-
+    this.fetchContactTypes()
   },
 
   methods: {
@@ -226,8 +229,9 @@ export default {
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals'
     }),
 
-    ...mapActions('personalDataModule', {
-      clearAge: 'clearAge'
+    ...mapActions({
+      clearAge: 'personalDataModule/clearAge',
+      fetchContactTypes: 'contactModule/fetchContactTypes'
     }),
 
     clearForm() {

@@ -2,13 +2,13 @@ import PersonalDataModel from '@/shared/models/personalDataModel'
 import GENDERS from '@/shared/enums/genders'
 import SCHOOL_TERMS from '@/shared/enums/schoolTerms'
 import YES_NO from '@/shared/enums/yesNo'
+import CidRepository from '@/shared/http/repositories/socialProject/cid'
 
 const state = {
   personalData: new PersonalDataModel(),
   genders: Object.values(GENDERS),
   schoolTerms: Object.values(SCHOOL_TERMS),
   yesNo: Object.values(YES_NO),
-  cids: ['1 - DEFICIÊNCIA FÍSICA', '2 - DEFICIÊNCIA MENTAL'],
   age: null
 }
 
@@ -23,11 +23,13 @@ const mutations = {
     return state.personalData
   },
 
-  SET_AGE: (state, payload) => {
-    state.age = payload
-  },
+  SET_AGE: (state, payload) => state.age = payload,
 
-  CLEAR_AGE: state => state.age = null
+  CLEAR_AGE: state => state.age = null,
+
+  SET_CID: (state, payload) => state.personalData.cid = payload.cidCode,
+
+  SET_CID_DESCRIPTION: (state, payload) => state.personalData.cidDescription = payload.name
 }
 
 const actions = {
@@ -43,6 +45,22 @@ const actions = {
 
   clearAge({ commit }) {
     commit('CLEAR_AGE')
+  },
+
+  async fetchCid({ commit }, cidCode) {
+    // loading push
+    await CidRepository.GetByCode(cidCode)
+      .then((res) => {
+        commit('SET_CID', res.data.data)
+        commit('SET_CID_DESCRIPTION', res.data.data)
+        // loading pop
+        return Promise.resolve()
+      })
+      .catch(() => {
+        // toast error
+        // loading pop
+        return Promise.reject()
+      })
   }
 }
 

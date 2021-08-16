@@ -1,8 +1,7 @@
 import AddressModel from '@/shared/models/address'
 
 const state = {
-  address: new AddressModel(),
-  cep: null
+  address: new AddressModel()
 }
 
 const getters = {
