@@ -1,11 +1,11 @@
 import SocialProjectManager from '../../clients/SocialProjectManager'
 
-const resourceName = 'localtraining'
+const resourceName = 'modalitylocaltraining'
 
 const GetAll = () => SocialProjectManager.get(resourceName)
 
-const LocalTrainingRepository = {
+const ModalityLocalTrainingRepository = {
   GetAll
 }
 
-export default LocalTrainingRepository
+export default ModalityLocalTrainingRepository

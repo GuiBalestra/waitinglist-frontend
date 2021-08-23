@@ -16,10 +16,11 @@
                 id="localTraining"
                 v-model="form.localTrainingName"
                 :options="localTrainings"
-                text-field="name"
-                value-field="id"
+                text-field="localTrainingName"
+                value-field="localTrainingId"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-22-live-feedback"
+                @input="onSelectLocalTraining(form.localTrainingName)"
               >
                 <template v-slot:first>
                   <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
@@ -40,10 +41,11 @@
                 id="modalitity"
                 v-model="form.modalityName"
                 :options="modalities"
-                text-field="name"
-                value-field="id"
+                text-field="modalityName"
+                value-field="modalityId"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-23-live-feedback"
+                @input="onSelectModality(form.modalityName)"
               >
                 <template v-slot:first>
                   <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
@@ -119,8 +121,28 @@ export default {
   }),
 
   computed: {
+    form: {
+      modalityName: {
+        get() {
+          return this.$store.state.modalityLocalTraining.modalityName
+        },
+        set(value) {
+          return this.$store.commit('setModality', value)
+        }
+      },
+      localTrainingName: {
+        get() {
+          return this.$store.state.modalityLocalTraining.localTrainingName
+        },
+        set(value) {
+          return this.$store.commit('setLocalTraining', value)
+        }
+      }
+    },
+
     ...mapState('modalityLocalTrainingModule', {
       form: 'modalityLocalTraining',
+      modalitiesLocalTrainings: 'modalitiesLocalTrainings',
       localTrainings: 'localTrainings',
       modalities: 'modalities',
       modalitiesLocals: 'modalitiesLocals'
@@ -132,8 +154,7 @@ export default {
   },
 
   created() {
-    this.fetchModalities()
-    this.fetchLocalTrainings()
+    this.fetchModalitiesLocalTrainings()
   },
 
   methods: {
@@ -146,8 +167,9 @@ export default {
 
     ...mapActions({
       clearAge: 'personalDataModule/clearAge',
-      fetchModalities: 'modalityLocalTrainingModule/fetchModalities',
-      fetchLocalTrainings: 'modalityLocalTrainingModule/fetchLocalTrainings'
+      fetchModalitiesLocalTrainings: 'modalityLocalTrainingModule/fetchModalitiesLocalTrainings',
+      onSelectLocalTraining: 'modalityLocalTrainingModule/onSelectLocalTraining',
+      onSelectModality: 'modalityLocalTrainingModule/onSelectModality'
     }),
 
     clearForm() {

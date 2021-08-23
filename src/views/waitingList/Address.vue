@@ -20,6 +20,7 @@
                 placeholder="17054-686"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-11-live-feedback"
+                @keyup.enter="fetchAddress(form.zipCode)"
               ></b-form-input>
               <b-form-invalid-feedback id="input-11-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
@@ -172,9 +173,17 @@ export default {
       'clearAddress'
     ]),
 
-    ...mapActions('personalDataModule', {
-      clearAge: 'clearAge'
+    ...mapActions('addressModule', {
+      fetchAddress: (dispatch, zipCode) => {
+        if(!zipCode) return
+
+        return dispatch('fetchAddress', zipCode)
+      }
     }),
+
+    ...mapActions('personalDataModule', [
+      'clearAge'
+    ]),
 
     clearForm() {
       this.clearAddress(this.form)
@@ -205,13 +214,13 @@ export default {
     if(to.name === 'Contact') {
       this.$refs.observer.validate()
         .then(valid => {
+          if(valid) return next()
+
           this.$bvToast.toast('Preencha todos os campos para avançar.', {
             title: 'Erro',
             variant: 'danger',
             autoHideDelay: 2000
           })
-
-          if(valid) return next()
         })
 
       return next(false)

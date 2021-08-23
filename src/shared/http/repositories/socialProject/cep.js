@@ -4,8 +4,8 @@ const resourceName = 'addresssuggestion'
 
 const GetByZipCode = zipCode => SocialProjectManager.get(`${resourceName}/${zipCode}`)
 
-const CidRepository = {
+const CepRepository = {
   GetByZipCode
 }
 
-export default CidRepository
+export default CepRepository

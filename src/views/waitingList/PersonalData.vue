@@ -323,13 +323,13 @@ export default {
     if(to.name === 'Address') {
       this.$refs.observer.validate()
         .then(valid => {
+          if(valid) return next()
+
           this.$bvToast.toast('Preencha todos os campos para avançar.', {
             title: 'Erro',
             variant: 'danger',
             autoHideDelay: 2000
           })
-
-          if(valid) return next()
         })
 
       return next(false)
