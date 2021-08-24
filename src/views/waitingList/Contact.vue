@@ -12,20 +12,25 @@
               label-for="contactType"
               class="mb-3"
             >
-              <b-form-select
-                id="contactType"
-                v-model="form.contactType"
-                :options="contactTypes"
-                text-field="name"
-                value-field="id"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-16-live-feedback"
-              >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
                 </template>
-              </b-form-select>
-              <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                <b-form-select
+                  id="contactType"
+                  v-model="form.contactType"
+                  :options="contactTypes"
+                  text-field="name"
+                  value-field="id"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-16-live-feedback"
+                >
+                  <template v-slot:first>
+                    <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                  </template>
+                </b-form-select>
+                <b-form-invalid-feedback id="input-16-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -213,7 +218,8 @@ export default {
     ...mapState('contactModule', {
       form: 'contact',
       contactTypes: 'contactTypes',
-      contacts: 'contacts'
+      contacts: 'contacts',
+      loading: 'loading'
     })
   },
 

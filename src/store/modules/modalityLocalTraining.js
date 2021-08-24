@@ -6,7 +6,8 @@ const state = {
   modalitiesLocalTrainings: [],
   localTrainings: [],
   modalities: [],
-  modalitiesLocals: []
+  modalitiesLocals: [],
+  loading: false
 }
 
 const getters = {
@@ -15,32 +16,43 @@ const getters = {
 
 const mutations = {
   clearModalityLocalTraining: state => state.modalityLocalTraining = new ModalityLocalTrainingModel(),
+
   clearModalitiesLocals: state => state.modalitiesLocals = [],
+
   removeModalityLocal: (state, payload) => state.modalitiesLocals.splice(payload, 1),
+
   setModality: (state, payload) => state.modalityLocalTraining.modalityId = payload,
+
   setLocalTraining: (state, payload) => state.modalityLocalTraining.localTrainingId = payload,
+
   SET_MODALITIES_LOCAL_TRAININGS: (state, payload) => state.modalitiesLocalTrainings = payload,
+
   CLEAR_MODALITIES: state => state.modalities = [],
+
   SET_MODALITIES: (state, payload) => state.modalities.push(payload),
+
   CLEAR_LOCAL_TRAININGS: state => state.localTrainings = [],
-  SET_LOCAL_TRAININGS: (state, payload) => state.localTrainings.push(payload)
+
+  SET_LOCAL_TRAININGS: (state, payload) => state.localTrainings.push(payload),
+
+  SHOW_LOADING: (state, payload) => state.loading = payload
 }
 
 const actions = {
   async fetchModalitiesLocalTrainings({ state, commit, dispatch }, force) {
     if (!state.modalitiesLocalTrainings.length || force) {
-      // loading push
+      commit('SHOW_LOADING', true)
       await ModalityLocalTrainingRepository.GetAll()
         .then((res) => {
           commit('SET_MODALITIES_LOCAL_TRAININGS', res.data.data)
           dispatch('onSelectModality')
           dispatch('onSelectLocalTraining')
-          // loading pop
+          commit('SHOW_LOADING', false)
           return Promise.resolve()
         })
         .catch(() => {
           // toast error
-          // loading pop
+          commit('SHOW_LOADING', false)
           return Promise.reject()
         })
     }

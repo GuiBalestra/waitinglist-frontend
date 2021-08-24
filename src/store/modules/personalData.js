@@ -32,9 +32,7 @@ const mutations = {
 
   SET_CID_DESCRIPTION: (state, payload) => state.personalData.cidDescription = payload.name,
 
-  SHOW_LOADING: (state, payload) => state.loading = payload,
-
-  HIDDEN_LOADING: (state, payload) => state.loading = payload
+  SHOW_LOADING: (state, payload) => state.loading = payload
 }
 
 const actions = {
@@ -58,12 +56,12 @@ const actions = {
       .then((res) => {
         commit('SET_CID', res.data.data)
         commit('SET_CID_DESCRIPTION', res.data.data)
-        commit('HIDDEN_LOADING', false)
+        commit('SHOW_LOADING', false)
         return Promise.resolve()
       })
       .catch(() => {
         // toast error
-        commit('HIDDEN_LOADING', false)
+        commit('SHOW_LOADING', false)
         return Promise.reject()
       })
   }

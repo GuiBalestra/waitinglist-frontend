@@ -12,17 +12,22 @@
               label-for="zipCode"
               class="mb-3"
             >
-              <b-form-input
-                id="zipCode"
-                v-model="form.zipCode"
-                type="text"
-                v-mask="['##.###-###']"
-                placeholder="17054-686"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-11-live-feedback"
-                @keyup.enter="fetchAddress(form.zipCode)"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-11-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="zipCode"
+                  v-model="form.zipCode"
+                  type="text"
+                  v-mask="['##.###-###']"
+                  placeholder="17054-686"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-11-live-feedback"
+                  @keyup.enter="fetchAddress(form.zipCode)"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-11-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -33,15 +38,20 @@
               label-for="city"
               class="mb-3"
             >
-              <b-form-input
-                id="city"
-                v-model="form.city"
-                type="text"
-                placeholder="Bauru"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-12-live-feedback"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-12-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="city"
+                  v-model="form.city"
+                  type="text"
+                  placeholder="Bauru"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-12-live-feedback"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-12-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -52,15 +62,20 @@
               label-for="district"
               class="mb-3"
             >
-              <b-form-input
-                id="district"
-                v-model="form.district"
-                type="text"
-                placeholder="Jardim Solange"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-13-live-feedback"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-13-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="district"
+                  v-model="form.district"
+                  type="text"
+                  placeholder="Jardim Solange"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-13-live-feedback"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-13-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -71,15 +86,20 @@
               label-for="street"
               class="mb-3"
             >
-              <b-form-input
-                id="street"
-                v-model="form.street"
-                type="text"
-                placeholder="Fábio Geraldo"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-14-live-feedback"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-14-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="street"
+                  v-model="form.street"
+                  type="text"
+                  placeholder="Fábio Geraldo"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-14-live-feedback"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-14-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -156,7 +176,8 @@ export default {
   computed: {
     ...mapState('addressModule', {
       form: 'address',
-      cep: 'cep'
+      cep: 'cep',
+      loading: 'loading'
     }),
 
     ...mapGetters('addressModule', [

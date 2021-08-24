@@ -12,21 +12,26 @@
               label-for="localTraining"
               class="mb-3"
             >
-              <b-form-select
-                id="localTraining"
-                v-model="form.localTrainingName"
-                :options="localTrainings"
-                text-field="localTrainingName"
-                value-field="localTrainingId"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-22-live-feedback"
-                @input="onSelectLocalTraining(form.localTrainingName)"
-              >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
                 </template>
-              </b-form-select>
-              <b-form-invalid-feedback id="input-22-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                <b-form-select
+                  id="localTraining"
+                  v-model="form.localTrainingName"
+                  :options="localTrainings"
+                  text-field="localTrainingName"
+                  value-field="localTrainingId"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-22-live-feedback"
+                  @input="onSelectLocalTraining(form.localTrainingName)"
+                >
+                  <template v-slot:first>
+                    <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                  </template>
+                </b-form-select>
+                <b-form-invalid-feedback id="input-22-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -37,21 +42,26 @@
               label-for="modalitity"
               class="mb-3"
             >
-              <b-form-select
-                id="modalitity"
-                v-model="form.modalityName"
-                :options="modalities"
-                text-field="modalityName"
-                value-field="modalityId"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-23-live-feedback"
-                @input="onSelectModality(form.modalityName)"
-              >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
                 </template>
-              </b-form-select>
-              <b-form-invalid-feedback id="input-23-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                <b-form-select
+                  id="modalitity"
+                  v-model="form.modalityName"
+                  :options="modalities"
+                  text-field="modalityName"
+                  value-field="modalityId"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-23-live-feedback"
+                  @input="onSelectModality(form.modalityName)"
+                >
+                  <template v-slot:first>
+                    <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                  </template>
+                </b-form-select>
+                <b-form-invalid-feedback id="input-23-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
         </b-form>
@@ -145,7 +155,8 @@ export default {
       modalitiesLocalTrainings: 'modalitiesLocalTrainings',
       localTrainings: 'localTrainings',
       modalities: 'modalities',
-      modalitiesLocals: 'modalitiesLocals'
+      modalitiesLocals: 'modalitiesLocals',
+      loading: 'loading'
     }),
 
     ...mapGetters('modalityLocalTrainingModule', [
