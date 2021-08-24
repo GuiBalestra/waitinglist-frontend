@@ -28,9 +28,11 @@ const mutations = {
 
   CLEAR_AGE: state => state.age = null,
 
-  SET_CID: (state, payload) => state.personalData.cid = payload.cidCode,
-
-  SET_CID_DESCRIPTION: (state, payload) => state.personalData.cidDescription = payload.name,
+  SET_CID: (state, payload) => {
+    state.personalData.cid = payload.cidCode
+    state.personalData.cidDescription = payload.name
+    return state.personalData
+  },
 
   SHOW_LOADING: (state, payload) => state.loading = payload
 }
@@ -55,7 +57,6 @@ const actions = {
     await CidRepository.GetByCode(cidCode)
       .then((res) => {
         commit('SET_CID', res.data.data)
-        commit('SET_CID_DESCRIPTION', res.data.data)
         commit('SHOW_LOADING', false)
         return Promise.resolve()
       })
