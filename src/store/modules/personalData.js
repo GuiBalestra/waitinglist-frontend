@@ -9,7 +9,8 @@ const state = {
   genders: Object.values(GENDERS),
   schoolTerms: Object.values(SCHOOL_TERMS),
   yesNo: Object.values(YES_NO),
-  age: null
+  age: null,
+  loading: false
 }
 
 const getters = {
@@ -29,7 +30,11 @@ const mutations = {
 
   SET_CID: (state, payload) => state.personalData.cid = payload.cidCode,
 
-  SET_CID_DESCRIPTION: (state, payload) => state.personalData.cidDescription = payload.name
+  SET_CID_DESCRIPTION: (state, payload) => state.personalData.cidDescription = payload.name,
+
+  SHOW_LOADING: (state, payload) => state.loading = payload,
+
+  HIDDEN_LOADING: (state, payload) => state.loading = payload
 }
 
 const actions = {
@@ -48,17 +53,17 @@ const actions = {
   },
 
   async fetchCid({ commit }, cidCode) {
-    // loading push
+    commit('SHOW_LOADING', true)
     await CidRepository.GetByCode(cidCode)
       .then((res) => {
         commit('SET_CID', res.data.data)
         commit('SET_CID_DESCRIPTION', res.data.data)
-        // loading pop
+        commit('HIDDEN_LOADING', false)
         return Promise.resolve()
       })
       .catch(() => {
         // toast error
-        // loading pop
+        commit('HIDDEN_LOADING', false)
         return Promise.reject()
       })
   }

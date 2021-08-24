@@ -157,17 +157,22 @@
               class="mb-3"
               v-if="showDeficiency"
             >
-              <b-form-input
-                id="cid"
-                v-model="form.cid"
-                type="text"
-                placeholder="Ex.: F840"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-8-live-feedback"
-                @keyup.enter="fetchCid(form.cid)"
-              >
-              </b-form-input>
-              <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="cid"
+                  v-model="form.cid"
+                  type="text"
+                  placeholder="Ex.: F840"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-8-live-feedback"
+                  @keyup.enter="fetchCid(form.cid)"
+                >
+                </b-form-input>
+                <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -179,18 +184,25 @@
               class="mb-3"
               v-if="showDeficiency"
             >
-              <b-form-textarea
-                id="cidDescription"
-                v-model="form.cidDescription"
-                placeholder="Se sim, qual deficiência?"
-                rows="3"
-                max-rows="6"
-                class="mt-3"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-9-live-feedback"
-                disabled
-              ></b-form-textarea>
-              <b-form-invalid-feedback id="input-9-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                  <b-skeleton></b-skeleton>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-textarea
+                  id="cidDescription"
+                  v-model="form.cidDescription"
+                  placeholder="Se sim, qual deficiência?"
+                  rows="3"
+                  max-rows="6"
+                  class="mt-3"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-9-live-feedback"
+                  disabled
+                ></b-form-textarea>
+                <b-form-invalid-feedback id="input-9-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
             </b-form-group>
           </ValidationProvider>
 
@@ -252,6 +264,7 @@ export default {
       genders: 'genders',
       schoolTerms: 'schoolTerms',
       yesNo: 'yesNo',
+      loading: 'loading'
     }),
 
     ...mapGetters('personalDataModule', [
