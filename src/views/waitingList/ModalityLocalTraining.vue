@@ -18,7 +18,7 @@
                 </template>
                 <b-form-select
                   id="localTraining"
-                  v-model="form.localTrainingName"
+                  v-model="form.localTrainingId"
                   :options="localTrainings"
                   text-field="localTrainingName"
                   value-field="localTrainingId"
@@ -48,7 +48,7 @@
                 </template>
                 <b-form-select
                   id="modalitity"
-                  v-model="form.modalityName"
+                  v-model="form.modalityId"
                   :options="modalities"
                   text-field="modalityName"
                   value-field="modalityId"
@@ -116,11 +116,11 @@ export default {
     emptyText: 'Nenhuma modalidade por local de treinamento foi adicionada.',
     fields: [
       {
-        key: 'modalityName',
+        key: 'modalityId',
         label: 'Modalidade'
       },
       {
-        key: 'localTrainingName',
+        key: 'localTrainingId',
         label: 'Local de treinamento'
       },
       {
@@ -156,8 +156,11 @@ export default {
       localTrainings: 'localTrainings',
       modalities: 'modalities',
       modalitiesLocals: 'modalitiesLocals',
-      loading: 'loading'
     }),
+
+    ...mapState('commonModule', [
+      'loading'
+    ]),
 
     ...mapGetters('modalityLocalTrainingModule', [
       'getModalitiesLocals'

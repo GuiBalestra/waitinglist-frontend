@@ -25,7 +25,7 @@ Vue.component('ValidationObserver', VeeValidate.ValidationObserver)
 VeeValidate.configure(config)
 VeeValidate.localize('pt_Br', pt_BR)
 
-new Vue({
+export const app = new Vue({
   router,
   store,
   render: h => h(App),

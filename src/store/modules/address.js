@@ -3,7 +3,6 @@ import CepRepository from '@/shared/http/repositories/socialProject/cep'
 
 const state = {
   address: new AddressModel(),
-  loading: false
 }
 
 const getters = {
@@ -20,23 +19,38 @@ const mutations = {
     state.address.district = payload.neighborhood
     state.address.street = payload.street
     return state.address
-  },
-
-  SHOW_LOADING: (state, payload) => state.loading = payload
+  }
 }
 
 const actions = {
-  async fetchAddress({ commit }, zipCode) {
-    commit('SHOW_LOADING', true)
+  async fetchAddress({ commit, dispatch }, zipCode) {
+    dispatch('commonModule/showLoading', true, { root: true })
+
     await CepRepository.GetByZipCode(zipCode)
-      .then((res) => {
+      .then(res => {
+        if (res.data.data === null || res.data.data.length === 0) {
+          dispatch('commonModule/showLoading', false, { root: true })
+
+          dispatch('commonModule/toast', {
+            type: 'warning',
+            msg: 'CEP inválido ou não possui registros.',
+            title: 'Aviso'
+          }, { root: true })
+          return Promise.resolve()
+        }
+
         commit('SET_ADDRESS', res.data.data)
-        commit('SHOW_LOADING', false)
+        dispatch('commonModule/showLoading', false, { root: true })
         return Promise.resolve()
       })
-      .catch(() => {
-        // toast error
-        commit('SHOW_LOADING', false)
+      .catch(err => {
+        dispatch('commonModule/toast', {
+          type: 'error',
+          msg: err,
+          title: 'Erro'
+        }, { root: true })
+
+        dispatch('commonModule/showLoading', false, { root: true })
         return Promise.reject()
       })
   }

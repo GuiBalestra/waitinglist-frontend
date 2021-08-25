@@ -9,8 +9,7 @@ const state = {
   genders: Object.values(GENDERS),
   schoolTerms: Object.values(SCHOOL_TERMS),
   yesNo: Object.values(YES_NO),
-  age: null,
-  loading: false
+  age: null
 }
 
 const getters = {
@@ -32,9 +31,7 @@ const mutations = {
     state.personalData.cid = payload.cidCode
     state.personalData.cidDescription = payload.name
     return state.personalData
-  },
-
-  SHOW_LOADING: (state, payload) => state.loading = payload
+  }
 }
 
 const actions = {
@@ -52,17 +49,34 @@ const actions = {
     commit('CLEAR_AGE')
   },
 
-  async fetchCid({ commit }, cidCode) {
-    commit('SHOW_LOADING', true)
+  async fetchCid({ commit, dispatch }, cidCode) {
+    dispatch('commonModule/showLoading', true, { root: true })
+
     await CidRepository.GetByCode(cidCode)
-      .then((res) => {
+      .then(res => {
+        if (res.data.data === null || res.data.data.length === 0) {
+          dispatch('commonModule/showLoading', false, { root: true })
+
+          dispatch('commonModule/toast', {
+            type: 'warning',
+            msg: 'CID inválido ou não possui registros.',
+            title: 'Aviso'
+          }, { root: true })
+          return Promise.resolve()
+        }
+
         commit('SET_CID', res.data.data)
-        commit('SHOW_LOADING', false)
+        dispatch('commonModule/showLoading', false, { root: true })
         return Promise.resolve()
       })
-      .catch(() => {
-        // toast error
-        commit('SHOW_LOADING', false)
+      .catch(err => {
+        dispatch('commonModule/toast', {
+          type: 'error',
+          msg: err,
+          title: 'Erro'
+        }, { root: true })
+
+        dispatch('commonModule/showLoading', false, { root: true })
         return Promise.reject()
       })
   }

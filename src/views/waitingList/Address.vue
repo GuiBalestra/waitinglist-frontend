@@ -176,9 +176,12 @@ export default {
   computed: {
     ...mapState('addressModule', {
       form: 'address',
-      cep: 'cep',
-      loading: 'loading'
+      cep: 'cep'
     }),
+
+    ...mapState('commonModule', [
+      'loading'
+    ]),
 
     ...mapGetters('addressModule', [
       'getAddress'

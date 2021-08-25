@@ -18,7 +18,7 @@
                 </template>
                 <b-form-select
                   id="contactType"
-                  v-model="form.contactType"
+                  v-model="form.contactTypeId"
                   :options="contactTypes"
                   text-field="name"
                   value-field="id"
@@ -188,7 +188,7 @@ export default {
         label: 'Nome'
       },
       {
-        key: 'contactType',
+        key: 'contactTypeId',
         label: 'Tipo do Contato'
       },
       {
@@ -218,9 +218,12 @@ export default {
     ...mapState('contactModule', {
       form: 'contact',
       contactTypes: 'contactTypes',
-      contacts: 'contacts',
-      loading: 'loading'
-    })
+      contacts: 'contacts'
+    }),
+
+    ...mapState('commonModule', [
+      'loading'
+    ])
   },
 
   created() {

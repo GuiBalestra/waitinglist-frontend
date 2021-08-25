@@ -263,14 +263,17 @@ export default {
       form: 'personalData',
       genders: 'genders',
       schoolTerms: 'schoolTerms',
-      yesNo: 'yesNo',
-      loading: 'loading'
+      yesNo: 'yesNo'
     }),
+
+    ...mapState('commonModule', [
+      'loading'
+    ]),
 
     ...mapGetters('personalDataModule', [
       'getPersonalData',
       'getAge'
-      ]),
+    ]),
 
     showDeficiency() {
       if (this.form.hasDeficiency === 1) {

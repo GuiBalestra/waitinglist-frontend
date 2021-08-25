@@ -4,7 +4,7 @@ export default class Contact {
   constructor({
     id,
     name,
-    contactType,
+    contactTypeId,
     phone1,
     phone2,
     phone3,
@@ -12,7 +12,7 @@ export default class Contact {
   } = {}) {
     this.id = id || GuidUtils.emptyGuid
     this.name = name,
-    this.contactType = contactType,
+    this.contactTypeId = contactTypeId,
     this.phone1 = phone1,
     this.phone2 = phone2,
     this.phone3 = phone3,

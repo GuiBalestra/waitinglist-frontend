@@ -4,12 +4,14 @@ import personalDataModule from './modules/personalData'
 import addressModule from './modules/address'
 import contactModule from './modules/contact'
 import modalityLocalTrainingModule from './modules/modalityLocalTraining'
+import commonModule from './modules/common'
 
 const modules = {
   personalDataModule,
   addressModule,
   contactModule,
-  modalityLocalTrainingModule
+  modalityLocalTrainingModule,
+  commonModule
 }
 
 Vue.use(Vuex)

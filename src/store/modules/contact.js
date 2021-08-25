@@ -4,8 +4,7 @@ import ContactTypeRepository from '@/shared/http/repositories/socialProject/cont
 const state = {
   contact: new ContactModel(),
   contacts: [],
-  contactTypes: [],
-  loading: false
+  contactTypes: []
 }
 
 const getters = {
@@ -19,24 +18,31 @@ const mutations = {
 
   removeContact: (state, payload) => state.contacts.splice(payload, 1),
 
-  SET_CONTACT_TYPE: (state, payload) => state.contactTypes = payload,
-
-  SHOW_LOADING: (state, payload) => state.loading = payload
+  SET_CONTACT_TYPES: (state, payload) => state.contactTypes = payload
 }
 
 const actions = {
-  async fetchContactTypes({ state, commit }, force) {
+  async fetchContactTypes({ state, commit, dispatch }, force) {
     if (!state.contactTypes.length || force) {
-      commit('SHOW_LOADING', true)
+      dispatch('commonModule/showLoading', true, { root: true })
+
       await ContactTypeRepository.GetAll()
-        .then((res) => {
-          commit('SET_CONTACT_TYPE', res.data.data)
-          commit('SHOW_LOADING', false)
+        .then(res => {
+          if (res.data.data === null || res.data.data.length === 0) return Promise.reject()
+
+          commit('SET_CONTACT_TYPES', res.data.data)
+          dispatch('commonModule/showLoading', false, { root: true })
+
           return Promise.resolve()
         })
-        .catch(() => {
-          // toast error
-          commit('SHOW_LOADING', false)
+        .catch(err => {
+          dispatch('commonModule/toast', {
+            type: 'error',
+            msg: err,
+            title: 'Erro'
+          }, { root: true })
+
+          dispatch('commonModule/showLoading', false, { root: true })
           return Promise.reject()
         })
     }
