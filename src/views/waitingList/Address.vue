@@ -184,7 +184,7 @@ export default {
     ]),
 
     ...mapGetters('addressModule', [
-      'getAddress'
+      'address'
     ])
   },
 

@@ -163,7 +163,7 @@
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
 import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import TableList from '@/components/tableList/TableList.vue'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
 
 export default {
@@ -223,6 +223,10 @@ export default {
 
     ...mapState('commonModule', [
       'loading'
+    ]),
+
+    ...mapGetters('contactModule', [
+      'contacts'
     ])
   },
 

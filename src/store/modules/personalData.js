@@ -13,8 +13,8 @@ const state = {
 }
 
 const getters = {
-  getPersonalData: state => state.personalData,
-  getAge: state => state.age
+  personalData: state => state.personalData,
+  age: state => state.age
 }
 
 const mutations = {

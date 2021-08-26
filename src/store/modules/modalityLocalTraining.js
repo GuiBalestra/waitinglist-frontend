@@ -10,7 +10,7 @@ const state = {
 }
 
 const getters = {
-  getModalitiesLocals: state => state.modalitiesLocals
+  modalitiesLocals: state => state.modalitiesLocals
 }
 
 const mutations = {

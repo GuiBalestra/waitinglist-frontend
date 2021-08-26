@@ -271,8 +271,8 @@ export default {
     ]),
 
     ...mapGetters('personalDataModule', [
-      'getPersonalData',
-      'getAge'
+      'personalData',
+      'age'
     ]),
 
     showDeficiency() {

@@ -8,7 +8,7 @@ const state = {
 }
 
 const getters = {
-  getContacts: state => state.contacts
+  contacts: state => state.contacts
 }
 
 const mutations = {

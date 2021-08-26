@@ -163,7 +163,7 @@ export default {
     ]),
 
     ...mapGetters('modalityLocalTrainingModule', [
-      'getModalitiesLocals'
+      'modalitiesLocals'
     ])
   },
 
