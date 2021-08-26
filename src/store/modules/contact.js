@@ -28,7 +28,7 @@ const actions = {
 
       await ContactTypeRepository.GetAll()
         .then(res => {
-          if (res.data.data === null || res.data.data.length === 0) return Promise.reject()
+          if (!res.data.data) return Promise.reject()
 
           commit('SET_CONTACT_TYPES', res.data.data)
           dispatch('commonModule/showLoading', false, { root: true })

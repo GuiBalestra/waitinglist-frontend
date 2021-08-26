@@ -42,6 +42,7 @@ const actions = {
 
       await ModalityLocalTrainingRepository.GetAll()
         .then(res => {
+          if (!res.data.data) return Promise.reject()
 
           commit('SET_MODALITIES_LOCAL_TRAININGS', res.data.data)
           dispatch('onSelectModality')

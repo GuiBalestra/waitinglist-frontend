@@ -54,7 +54,7 @@ const actions = {
 
     await CidRepository.GetByCode(cidCode)
       .then(res => {
-        if (res.data.data === null || res.data.data.length === 0) {
+          if (!res.data.data) {
           dispatch('commonModule/showLoading', false, { root: true })
 
           dispatch('commonModule/toast', {
