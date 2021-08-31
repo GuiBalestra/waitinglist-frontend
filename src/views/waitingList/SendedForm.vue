@@ -4,8 +4,11 @@
 
     <div class="centralize-items mt-5">
       <div class="paragraph">
-        <div>Cadastro na lista de espera efetuado com sucesso!</div>
-        <div>Quando surgir a vaga desejada, notificaremos pelo telefone de contato.</div>
+        <div>
+          <p>Seu cadastro na FILA DE ESPERA ABDA foi realizado com sucesso.</p>
+          <p> Por favor, aguarde o contato da secretaria.</p>
+          <p> Não se esqueça de manter seu telefone de contato atualizado neste cadastro. Obrigado!</p>
+        </div>
       </div>
 
       <router-link :to="{ name: 'Dashboard' }">
