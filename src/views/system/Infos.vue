@@ -39,6 +39,15 @@
       </b-list-group-item>
       <b-list-group-item class="column-orientation" variant="secondary">
         <div>
+          <h3 class="">ESPAÇO MÚSICA</h3>
+          <p><strong>Modalidades:</strong><em> Orquestra Filarmônica</em></p>
+          <p><strong>Endereço:</strong><em> Rua Fabio Geraldo, 2-12 – Jardim Solange – Bauru/SP</em></p>
+          <p><strong>Horário de atendimento:</strong><em> segunda à sexta-feira, das 8h às 17h30</em></p>
+          <p><strong>Telefone:</strong><em> (14) 3202-9259</em></p>
+        </div>
+      </b-list-group-item>
+      <b-list-group-item class="column-orientation" variant="secondary">
+        <div>
           <h3 class="">MULTICOBRA</h3>
           <p><strong>Modalidades:</strong><em> Natação e Polo Aquático</em></p>
           <p><strong>Endereço:</strong><em> Rua Cussy Junior, 12-83 – Centro – Bauru/SP</em></p>
@@ -52,7 +61,7 @@
 
 <script>
 export default {
-
+  name: 'Info'
 }
 </script>
 
