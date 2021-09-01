@@ -303,7 +303,7 @@ export default {
 
     addContact() {
       this.pushContact(this.contact)
-      this.clearContact()
+      this.clearForm()
     },
 
     clearForm() {
