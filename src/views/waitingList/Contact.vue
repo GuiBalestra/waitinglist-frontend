@@ -217,7 +217,7 @@ export default {
   computed: {
       name: {
         get() {
-          return this.$store.state.name
+          return this.$store.state.contact.name
         },
         set(value) {
           this.$store.commit('contactModule/setName', value)
@@ -225,7 +225,7 @@ export default {
       },
       contactTypeId: {
         get() {
-          return this.$store.state.contactTypeId
+          return this.$store.state.contact.contactTypeId
         },
         set(value) {
           this.$store.commit('contactModule/setContactTypeId', value)
@@ -233,7 +233,7 @@ export default {
       },
       phone1: {
         get() {
-          return this.$store.state.phone1
+          return this.$store.state.contact.phone1
         },
         set(value) {
           this.$store.commit('contactModule/setPhone1', value)
@@ -241,7 +241,7 @@ export default {
       },
       phone2: {
         get() {
-          return this.$store.state.phone2
+          return this.$store.state.contact.phone2
         },
         set(value) {
           this.$store.commit('contactModule/setPhone2', value)
@@ -249,7 +249,7 @@ export default {
       },
       phone3: {
         get() {
-          return this.$store.state.phone3
+          return this.$store.state.contact.phone3
         },
         set(value) {
           this.$store.commit('contactModule/setPhone3', value)
@@ -257,7 +257,7 @@ export default {
       },
       email: {
         get() {
-          return this.$store.state.email
+          return this.$store.state.contact.email
         },
         set(value) {
           this.$store.commit('contactModule/setEmail', value)
