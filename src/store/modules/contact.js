@@ -8,7 +8,8 @@ const state = {
 }
 
 const getters = {
-  contacts: state => state.contacts
+  contacts: state => state.contacts,
+  contact: state => state.contact
 }
 
 const mutations = {
@@ -18,7 +19,27 @@ const mutations = {
 
   removeContact: (state, payload) => state.contacts.splice(payload, 1),
 
-  SET_CONTACT_TYPES: (state, payload) => state.contactTypes = payload
+  setName: (state, payload) => state.contact.name = payload,
+
+  setContactTypeId: (state, payload) => state.contact.contactTypeId = payload,
+
+  setPhone1: (state, payload) => state.contact.phone1 = payload,
+
+  setPhone2: (state, payload) => state.contact.phone2 = payload,
+
+  setPhone3: (state, payload) => state.contact.phone3 = payload,
+
+  setEmail: (state, payload) => state.contact.email = payload,
+
+  SET_CONTACT_TYPES: (state, payload) => state.contactTypes = payload,
+
+  PUSH_CONTACT: (state, payload) => {
+    const ctName = state.contactTypes.find(ct => ct.id === payload.contactTypeId).name
+    if (ctName) {
+      payload.contactTypeName = ctName
+      return state.contacts.push(payload)
+    }
+  }
 }
 
 const actions = {

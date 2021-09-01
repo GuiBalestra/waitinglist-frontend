@@ -18,7 +18,7 @@
                 </template>
                 <b-form-select
                   id="contactType"
-                  v-model="form.contactTypeId"
+                  v-model="contact.contactTypeId"
                   :options="contactTypes"
                   text-field="name"
                   value-field="id"
@@ -43,7 +43,7 @@
             >
               <b-form-input
                 id="name"
-                v-model="form.name"
+                v-model="contact.name"
                 type="text"
                 placeholder="Nome do contato"
                 :state="getValidationState(validationContext)"
@@ -62,7 +62,7 @@
             >
               <b-form-input
                 id="phone1"
-                v-model="form.phone1"
+                v-model="contact.phone1"
                 type="text"
                 v-mask="['(##) ####-####', '(##) #####-####']"
                 placeholder="(14) 3202-9259"
@@ -82,7 +82,7 @@
             >
               <b-form-input
                 id="phone2"
-                v-model="form.phone2"
+                v-model="contact.phone2"
                 type="text"
                 v-mask="['(##) ####-####', '(##) #####-####']"
                 placeholder="(14) 3202-9259"
@@ -102,7 +102,7 @@
             >
               <b-form-input
                 id="phone3"
-                v-model="form.phone3"
+                v-model="contact.phone3"
                 type="text"
                 v-mask="['(##) ####-####', '(##) #####-####']"
                 placeholder="(14) 3202-9259"
@@ -122,7 +122,7 @@
             >
               <b-form-input
                 id="email"
-                v-model="form.email"
+                v-model="contact.email"
                 type="email"
                 placeholder="meuemail@email.com"
                 :state="getValidationState(validationContext)"
@@ -188,7 +188,7 @@ export default {
         label: 'Nome'
       },
       {
-        key: 'contactTypeId',
+        key: 'contactTypeName',
         label: 'Tipo do Contato'
       },
       {
@@ -215,19 +215,69 @@ export default {
   }),
 
   computed: {
+      name: {
+        get() {
+          return this.$store.state.name
+        },
+        set(value) {
+          this.$store.commit('contactModule/setName', value)
+        }
+      },
+      contactTypeId: {
+        get() {
+          return this.$store.state.contactTypeId
+        },
+        set(value) {
+          this.$store.commit('contactModule/setContactTypeId', value)
+        }
+      },
+      phone1: {
+        get() {
+          return this.$store.state.phone1
+        },
+        set(value) {
+          this.$store.commit('contactModule/setPhone1', value)
+        }
+      },
+      phone2: {
+        get() {
+          return this.$store.state.phone2
+        },
+        set(value) {
+          this.$store.commit('contactModule/setPhone2', value)
+        }
+      },
+      phone3: {
+        get() {
+          return this.$store.state.phone3
+        },
+        set(value) {
+          this.$store.commit('contactModule/setPhone3', value)
+        }
+      },
+      email: {
+        get() {
+          return this.$store.state.email
+        },
+        set(value) {
+          this.$store.commit('contactModule/setEmail', value)
+        }
+      },
+
     ...mapState('contactModule', {
-      form: 'contact',
       contactTypes: 'contactTypes',
-      contacts: 'contacts'
+      contacts: 'contacts',
+      contact: 'contact'
     }),
 
     ...mapState('commonModule', [
       'loading'
     ]),
 
-    ...mapGetters('contactModule', [
-      'contacts'
-    ])
+    ...mapGetters('contactModule', {
+      contacts: 'contacts',
+      contact: 'contact'
+    })
   },
 
   created() {
@@ -239,16 +289,25 @@ export default {
       clearContact: 'contactModule/clearContact',
       removeContact: 'contactModule/removeContact',
       clearContacts: 'contactModule/clearContacts',
+      pushContact: 'contactModule/PUSH_CONTACT',
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals'
     }),
 
-    ...mapActions({
-      clearAge: 'personalDataModule/clearAge',
-      fetchContactTypes: 'contactModule/fetchContactTypes'
+    ...mapActions('personalDataModule', [
+      'clearAge'
+    ]),
+
+    ...mapActions('contactModule', {
+      fetchContactTypes: 'fetchContactTypes',
     }),
 
+    addContact() {
+      this.pushContact(this.contact)
+      this.clearContact()
+    },
+
     clearForm() {
-      this.clearContact(this.form)
+      this.clearContact()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()
@@ -285,12 +344,6 @@ export default {
 
           this.addContact()
         })
-    },
-
-    addContact() {
-      const contact = this.form
-      this.contacts.push(contact)
-      this.clearForm()
     },
 
     removeContactByIndex(index) {
