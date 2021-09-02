@@ -79,11 +79,11 @@ const actions = {
     let list = state.modalitiesLocalTrainings
 
     if (state.modalityLocalTraining.localTrainingId) {
-      const type = state.localTrainings.filter(lt => lt.id === state.modalityLocalTraining.localTrainingId)
+      const type = state.localTrainings.filter(lt => lt.localTrainingId === state.modalityLocalTraining.localTrainingId)
 
       if (type.length > 0) {
-        state.modalityLocalTraining.localTrainingName = type[0].name
-        list = state.modalitiesLocalTrainings.filter(lt => lt.localTrainingId === type[0].id)
+        state.modalityLocalTraining.localTrainingName = type[0].localTrainingName
+        list = state.modalitiesLocalTrainings.filter(lt => lt.localTrainingId === type[0].localTrainingId)
       }
     }
 
@@ -94,7 +94,7 @@ const actions = {
         modalityName: list[i].modalityName
       }
 
-      if (state.modalities.filter(m => m.id === modality.id).length === 0) {
+      if (state.modalities.filter(m => m.modalityId === modality.modalityId).length === 0) {
         commit('SET_MODALITIES', modality)
       }
     }
@@ -104,11 +104,11 @@ const actions = {
     let list = state.modalitiesLocalTrainings
 
     if (state.modalityLocalTraining.modalityId) {
-      let type = state.modalities.filter(m => m.id === state.modalityLocalTraining.modalityId)
+      let type = state.modalities.filter(m => m.modalityId === state.modalityLocalTraining.modalityId)
 
       if (type.length > 0) {
-        state.modalityLocalTraining.modalityName = type[0].name
-        list = state.modalitiesLocalTrainings.filter(m => m.modalityId === type[0].id)
+        state.modalityLocalTraining.modalityName = type[0].modalityName
+        list = state.modalitiesLocalTrainings.filter(m => m.modalityId === type[0].modalityId)
       }
     }
 
@@ -119,7 +119,7 @@ const actions = {
         localTrainingName: list[i].localTrainingName
       }
 
-      if (state.localTrainings.filter(lt => lt.id === local.id).length === 0) {
+      if (state.localTrainings.filter(lt => lt.localTrainingId === local.localTrainingId).length === 0) {
         commit('SET_LOCAL_TRAININGS', local)
       }
     }
