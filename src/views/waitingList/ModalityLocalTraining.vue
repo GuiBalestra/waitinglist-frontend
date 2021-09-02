@@ -18,13 +18,13 @@
                 </template>
                 <b-form-select
                   id="localTraining"
-                  v-model="form.localTrainingId"
+                  v-model="modalityLocalTraining.localTrainingId"
                   :options="localTrainings"
                   text-field="localTrainingName"
                   value-field="localTrainingId"
                   :state="getValidationState(validationContext)"
                   aria-describedby="input-22-live-feedback"
-                  @input="onSelectLocalTraining(form.localTrainingName)"
+                  @input="onSelectLocalTraining(modalityLocalTraining.localTrainingName)"
                 >
                   <template v-slot:first>
                     <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
@@ -48,13 +48,13 @@
                 </template>
                 <b-form-select
                   id="modalitity"
-                  v-model="form.modalityId"
+                  v-model="modalityLocalTraining.modalityId"
                   :options="modalities"
                   text-field="modalityName"
                   value-field="modalityId"
                   :state="getValidationState(validationContext)"
                   aria-describedby="input-23-live-feedback"
-                  @input="onSelectModality(form.modalityName)"
+                  @input="onSelectModality(modalityLocalTraining.modalityName)"
                 >
                   <template v-slot:first>
                     <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
@@ -116,11 +116,11 @@ export default {
     emptyText: 'Nenhuma modalidade por local de treinamento foi adicionada.',
     fields: [
       {
-        key: 'modalityId',
+        key: 'modalityName',
         label: 'Modalidade'
       },
       {
-        key: 'localTrainingId',
+        key: 'localTrainingName',
         label: 'Local de treinamento'
       },
       {
@@ -131,27 +131,25 @@ export default {
   }),
 
   computed: {
-    form: {
-      modalityName: {
-        get() {
-          return this.$store.state.modalityLocalTraining.modalityName
-        },
-        set(value) {
-          return this.$store.commit('setModality', value)
-        }
+    modalityId: {
+      get() {
+        return this.$store.state.modalityLocalTraining.modalityId
       },
-      localTrainingName: {
-        get() {
-          return this.$store.state.modalityLocalTraining.localTrainingName
-        },
-        set(value) {
-          return this.$store.commit('setLocalTraining', value)
-        }
+      set(value) {
+        return this.$store.commit('setModality', value)
+      }
+    },
+    localTrainingId: {
+      get() {
+        return this.$store.state.modalityLocalTraining.localTrainingId
+      },
+      set(value) {
+        return this.$store.commit('setLocalTraining', value)
       }
     },
 
     ...mapState('modalityLocalTrainingModule', {
-      form: 'modalityLocalTraining',
+      modalityLocalTraining: 'modalityLocalTraining',
       modalitiesLocalTrainings: 'modalitiesLocalTrainings',
       localTrainings: 'localTrainings',
       modalities: 'modalities',
@@ -162,9 +160,10 @@ export default {
       'loading'
     ]),
 
-    ...mapGetters('modalityLocalTrainingModule', [
-      'modalitiesLocals'
-    ])
+    ...mapGetters('modalityLocalTrainingModule', {
+      modalitiesLocals: 'modalitiesLocals',
+      modalityLocalTraining: 'modalityLocalTraining'
+    })
   },
 
   created() {
@@ -176,7 +175,8 @@ export default {
       clearModalityLocalTraining: 'modalityLocalTrainingModule/clearModalityLocalTraining',
       removeModalityLocal: 'modalityLocalTrainingModule/removeModalityLocal',
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals',
-      clearContacts: 'contactModule/clearContacts'
+      clearContacts: 'contactModule/clearContacts',
+      pushModalityLocal: 'modalityLocalTrainingModule/PUSH_MODALITY_LOCAL'
     }),
 
     ...mapActions({
@@ -187,7 +187,7 @@ export default {
     }),
 
     clearForm() {
-      this.clearModalityLocalTraining(this.form)
+      this.clearModalityLocalTraining()
 
       this.$nextTick(() => {
         this.$refs.observer.reset()
@@ -216,10 +216,10 @@ export default {
     },
 
     addModalityByLocal() {
-      const modalityLocal = this.form
+      const modalityLocal = this.modalityLocalTraining
       let hasModalityLocal = this.modalitiesLocals.some(x =>
-        x.modalityName === modalityLocal.modalityName &&
-        x.localTrainingName === modalityLocal.localTrainingName
+        x.modalityId === modalityLocal.modalityId &&
+        x.localTrainingId === modalityLocal.localTrainingId
       )
 
       if(hasModalityLocal) {
@@ -230,8 +230,8 @@ export default {
                   autoHideDelay: 2000
                 })
       }
-
-      this.modalitiesLocals.push(modalityLocal)
+      const { modalityId, localTrainingId } = modalityLocal
+      this.pushModalityLocal({ modalityId, localTrainingId })
       this.clearForm()
     },
 

@@ -10,7 +10,8 @@ const state = {
 }
 
 const getters = {
-  modalitiesLocals: state => state.modalitiesLocals
+  modalitiesLocals: state => state.modalitiesLocals,
+  modalityLocalTraining: state => state.modalityLocalTraining
 }
 
 const mutations = {
@@ -32,7 +33,17 @@ const mutations = {
 
   CLEAR_LOCAL_TRAININGS: state => state.localTrainings = [],
 
-  SET_LOCAL_TRAININGS: (state, payload) => state.localTrainings.push(payload)
+  SET_LOCAL_TRAININGS: (state, payload) => state.localTrainings.push(payload),
+
+  PUSH_MODALITY_LOCAL: (state, payload) => {
+    const localTrainingName = state.localTrainings.find(lt => lt.localTrainingId === payload.localTrainingId).localTrainingName
+    const modalityName = state.modalities.find(m => m.modalityId === payload.modalityId).modalityName
+    if (localTrainingName && modalityName) {
+      payload.localTrainingName = localTrainingName
+      payload.modalityName = modalityName
+      return state.modalitiesLocals.push(payload)
+    }
+  }
 }
 
 const actions = {
