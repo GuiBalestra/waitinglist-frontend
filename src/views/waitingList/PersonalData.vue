@@ -164,8 +164,8 @@
                 <b-form-input
                   id="cid"
                   v-model="form.cid"
-                  type="text"
-                  placeholder="Ex.: F840"
+                  type="search"
+                  placeholder="Pesquisar CID ex.: F840"
                   :state="getValidationState(validationContext)"
                   aria-describedby="input-8-live-feedback"
                   @keyup.enter="fetchCid(form.cid)"
@@ -193,7 +193,7 @@
                 <b-form-textarea
                   id="cidDescription"
                   v-model="form.cidDescription"
-                  placeholder="Se sim, qual deficiência?"
+                  placeholder="Descrição do CID"
                   rows="3"
                   max-rows="6"
                   class="mt-3"
@@ -282,10 +282,6 @@ export default {
 
       return false
     }
-  },
-
-  created() {
-
   },
 
   methods: {

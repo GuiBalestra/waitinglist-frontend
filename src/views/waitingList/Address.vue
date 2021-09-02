@@ -19,9 +19,9 @@
                 <b-form-input
                   id="zipCode"
                   v-model="form.zipCode"
-                  type="text"
+                  type="search"
                   v-mask="['##.###-###']"
-                  placeholder="17054-686"
+                  placeholder="Digite ou pesquise um CEP ex.: 17054-686"
                   :state="getValidationState(validationContext)"
                   aria-describedby="input-11-live-feedback"
                   @keyup.enter="fetchAddress(form.zipCode)"
