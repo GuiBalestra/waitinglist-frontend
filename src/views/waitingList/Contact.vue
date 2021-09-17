@@ -136,7 +136,7 @@
 
       <div class="d-flex justify-content-end">
         <b-button
-          variant="success"
+          variant="primary"
           class="mt-3"
           @click="validateAddBtn"
         >

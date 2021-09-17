@@ -68,7 +68,7 @@
       </ValidationObserver>
       <div class="d-flex justify-content-end">
         <b-button
-          variant="success"
+          variant="primary"
           class="mt-3"
           @click="validateAddBtn"
         >
@@ -163,7 +163,11 @@ export default {
     ...mapGetters('modalityLocalTrainingModule', {
       modalitiesLocals: 'modalitiesLocals',
       modalityLocalTraining: 'modalityLocalTraining'
-    })
+    }),
+
+    ...mapGetters('personalDataModule', [
+      'age'
+    ])
   },
 
   created() {
