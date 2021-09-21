@@ -24,26 +24,6 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="Data de Nascimento" rules="required" v-slot="validationContext">
-            <b-form-group
-              id="input-group-2"
-              label="Data de nascimento"
-              label-for="birthDate"
-              class="mb-3"
-            >
-              <b-form-input
-                id="birthDate"
-                v-model="form.birthDate"
-                type="date"
-                placeholder="dd/mm/aaaa"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-2-live-feedback"
-                @blur="setAge(form.birthDate)"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-2-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-            </b-form-group>
-          </ValidationProvider>
-
           <ValidationProvider name="Gênero" rules="required" v-slot="validationContext">
             <b-form-group
               id="input-group-3"
@@ -294,8 +274,7 @@ export default {
     ]),
 
     ...mapGetters('personalDataModule', [
-      'personalData',
-      'age'
+      'personalData'
     ]),
 
     showDeficiency() {
@@ -313,10 +292,6 @@ export default {
     ]),
 
     ...mapActions('personalDataModule', {
-      setAge: (dispatch, birthDate) => {
-        return dispatch('setAge', birthDate)
-      },
-
       clearAge: 'clearAge',
 
       fetchCid: (dispatch, cidCode) => {

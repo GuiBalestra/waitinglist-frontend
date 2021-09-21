@@ -1,16 +1,17 @@
 <template>
   <b-container>
-    <div>
-      <div>Idade: {{age}}</div>
-      <div>Dados Pessoais: {{personalData}}</div>
-      <div>Endereço: {{address}}</div>
-      <div>Contatos: {{contacts}}</div>
-      <div>Modalidade e Local: {{modalitiesLocals}}</div>
-    </div>
+    <b-card>
+      <div><strong>Idade:</strong> {{age}}</div>
+      <div><strong>Dados Pessoais:</strong> {{personalData}}</div>
+      <div><strong>Endereço:</strong> {{address}}</div>
+      <div><strong>Contatos:</strong> {{contacts}}</div>
+      <div><strong>Modalidade e Local:</strong> {{modalitiesLocals}}</div>
+    </b-card>
 
     <BackSaveButton
       :back="back"
       @onSave="handleSave"
+      class="mt-3"
     />
   </b-container>
 </template>

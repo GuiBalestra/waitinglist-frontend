@@ -1,8 +1,5 @@
-import GuidUtils from '@/shared/utils/guid'
-
 export default class Contact {
   constructor({
-    id,
     name,
     contactTypeId,
     phone1,
@@ -10,7 +7,6 @@ export default class Contact {
     phone3,
     email
   } = {}) {
-    this.id = id || GuidUtils.emptyGuid
     this.name = name,
     this.contactTypeId = contactTypeId,
     this.phone1 = phone1,

@@ -5,7 +5,7 @@
         <b-button>Voltar</b-button>
       </router-link>
 
-      <b-button @click="onSave">Enviar</b-button>
+      <b-button @click="onSave">Salvar</b-button>
     </b-row>
   </b-container>
 </template>

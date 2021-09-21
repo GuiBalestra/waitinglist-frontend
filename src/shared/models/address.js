@@ -1,8 +1,5 @@
-import GuidUtils from '@/shared/utils/guid'
-
 export default class Address {
   constructor({
-    id,
     city,
     cityId,
     zipCode,
@@ -11,7 +8,6 @@ export default class Address {
     number,
     complement
   } = {}) {
-    this.id = id || GuidUtils.emptyGuid,
     this.zipCode = zipCode,
     this.city = city,
     this.cityId = cityId,

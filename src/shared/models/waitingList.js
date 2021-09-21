@@ -1,8 +1,5 @@
-import GuidUtils from '@/shared/utils/guid'
-
 export default class WaitingList {
   constructor({
-    id,
     name,
     gender,
     rg,
@@ -24,7 +21,6 @@ export default class WaitingList {
     modalitiesLocals
 
   } = {}) {
-    this.id = id || GuidUtils.emptyGuid,
     this.name = name,
     this.gender = gender,
     this.rg = rg,
