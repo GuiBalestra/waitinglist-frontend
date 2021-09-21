@@ -10,6 +10,7 @@ export default class Form {
     birthDate,
     schoolTerm,
     hasDeficiency,
+    deficiencyType,
     cid,
     cidDescription,
     observations
@@ -22,6 +23,7 @@ export default class Form {
     this.birthDate = birthDate,
     this.schoolTerm = schoolTerm,
     this.hasDeficiency = hasDeficiency,
+    this.deficiencyType = deficiencyType,
     this.cid = cid,
     this.cidDescription = cidDescription,
     this.observations = observations

@@ -5,7 +5,7 @@
       Nesta página, você pode preencher um cadastro, seguindo esses requisitos, para inserir o nome da criança na fila de espera nas modalidades NATAÇÃO, POLO AQUÁTICO ou ATLETISMO e aguardar contato da secretaria quando houver eventual vaga.
       Para as atividades musicais da ABDA Filarmônica, por enquanto, não haverá cadastro online. As respostas para as dúvidas mais frequentes sobre as atividades da ABDA você encontra no <a href="https://abdabauru.com.br/faq">Link</a>
     </p>
-    <router-link :to="{ name: 'PersonalData' }">
+    <router-link :to="{ name: 'ModalityLocalTraining' }">
       <b-button>Iniciar</b-button>
     </router-link>
   </b-container>

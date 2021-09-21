@@ -5,9 +5,7 @@
         <b-button>Voltar</b-button>
       </router-link>
 
-      <router-link :to="{ name: sendedForm }">
-        <b-button>Enviar</b-button>
-      </router-link>
+      <b-button @click="onSave">Enviar</b-button>
     </b-row>
   </b-container>
 </template>
@@ -20,11 +18,12 @@ export default {
     back: {
       type: String,
       required: true
-    },
+    }
+  },
 
-    sendedForm: {
-      type: String,
-      required: true
+  methods: {
+    onSave() {
+      this.$emit('onSave')
     }
   }
 }

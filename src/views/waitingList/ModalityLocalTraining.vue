@@ -84,16 +84,16 @@
       />
     </b-jumbotron>
 
-    <BackSaveButton
+    <BackNextButton
       :back="back"
-      :sendedForm="sendedForm"
+      :next="next"
     />
   </b-container>
 </template>
 
 <script>
 import PageTitle from '@/components/pageTitle/PageTitle.vue'
-import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
+import BackNextButton from '@/components/backNextButton/BackNextButton.vue'
 import TableList from '@/components/tableList/TableList.vue'
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import { mixin } from '@/shared/mixins'
@@ -103,15 +103,15 @@ export default {
 
   components: {
     [PageTitle.name]: PageTitle,
-    [BackSaveButton.name]: BackSaveButton,
-    [TableList.name]: TableList
+    [TableList.name]: TableList,
+    [BackNextButton.name]: BackNextButton
   },
 
   mixins: [mixin],
 
   data: () => ({
-    back: 'Contact',
-    sendedForm: 'SendedForm',
+    back: 'Dashboard',
+    next: 'PersonalData',
     title: 'Local e Modalidade',
     emptyText: 'Nenhuma modalidade por local de treinamento foi adicionada.',
     fields: [
@@ -160,14 +160,10 @@ export default {
       'loading'
     ]),
 
-    ...mapGetters('modalityLocalTrainingModule', {
-      modalitiesLocals: 'modalitiesLocals',
-      modalityLocalTraining: 'modalityLocalTraining'
-    }),
+    ...mapGetters({
+      modalityLocalTraining: 'modalityLocalTrainingModule/modalityLocalTraining',
 
-    ...mapGetters('personalDataModule', [
-      'age'
-    ])
+    })
   },
 
   created() {
@@ -180,7 +176,8 @@ export default {
       removeModalityLocal: 'modalityLocalTrainingModule/removeModalityLocal',
       clearModalitiesLocals: 'modalityLocalTrainingModule/clearModalitiesLocals',
       clearContacts: 'contactModule/clearContacts',
-      pushModalityLocal: 'modalityLocalTrainingModule/PUSH_MODALITY_LOCAL'
+      pushModalityLocal: 'modalityLocalTrainingModule/PUSH_MODALITY_LOCAL',
+      showLoading: 'commonModule/SHOW_LOADING'
     }),
 
     ...mapActions({
@@ -245,18 +242,22 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    if(from.name === 'Contact') {
+    if(from.name === 'Dashboard') {
       return next(vm => {
         vm.clearForm()
         vm.getModalitiesLocals
       })
     }
 
+    if(from.name === 'PersonalData') {
+      return next(vm => vm.modalitiesLocals)
+    }
+
     return next(false)
   },
 
   beforeRouteLeave(to, from, next) {
-    if(to.name === 'SendedForm') {
+    if(to.name === 'PersonalData') {
       if(!this.modalitiesLocals.length) {
         this.$refs.observer.validate()
           .then(() => {

@@ -149,6 +149,28 @@
             </b-form-group>
           </ValidationProvider>
 
+          <ValidationProvider name="Tipo da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
+            <b-form-group
+              id="input-group-24"
+              label="Tipo de deficiência"
+              label-for="deficiencyType"
+              class="mb-3"
+            >
+              <b-form-select
+                id="deficiencyType"
+                v-model="form.deficiencyType"
+                :options="deficiencyTypes"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-24-live-feedback"
+              >
+                <template v-slot:first>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                </template>
+              </b-form-select>
+              <b-form-invalid-feedback id="input-24-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+            </b-form-group>
+          </ValidationProvider>
+
           <ValidationProvider name="CID" rules="required_if:deficiency,1" v-slot="validationContext">
             <b-form-group
               id="input-group-8"
@@ -253,7 +275,7 @@ export default {
   mixins: [mixin],
 
   data: () => ({
-    back: 'Dashboard',
+    back: 'ModalityLocalTraining',
     next: 'Address',
     title: 'Dados Pessoais'
   }),
@@ -263,7 +285,8 @@ export default {
       form: 'personalData',
       genders: 'genders',
       schoolTerms: 'schoolTerms',
-      yesNo: 'yesNo'
+      yesNo: 'yesNo',
+      deficiencyTypes: 'deficiencyTypes'
     }),
 
     ...mapState('commonModule', [
@@ -317,7 +340,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    if(from.name === 'Dashboard') {
+    if(from.name === 'ModalityLocalTraining') {
       return next(vm => {
         vm.clearForm()
         vm.clearAge()

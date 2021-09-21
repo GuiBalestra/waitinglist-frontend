@@ -1,10 +1,9 @@
-import PersonalData from '@/views/waitingList/PersonalData.vue'
 const WizardRoutes = [
   {
     path: '/dados-pessoais',
     meta: { title: 'Dados Pessoais' },
     name: 'PersonalData',
-    component: PersonalData
+    component: () => import('@/views/waitingList/PersonalData.vue')
   },
   {
     path: '/endereco',
@@ -23,6 +22,12 @@ const WizardRoutes = [
     meta: { title: 'Local e Modalidade' },
     name: 'ModalityLocalTraining',
     component: () => import('@/views/waitingList/ModalityLocalTraining.vue')
+  },
+  {
+    path: '/confirmacao',
+    meta: { title: 'Confirmação' },
+    name: 'Confirmation',
+    component: () => import('@/views/waitingList/Confirmation.vue')
   },
   {
     path: '/formulario-enviado',

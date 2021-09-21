@@ -179,7 +179,7 @@ export default {
 
   data: () => ({
     back: 'Address',
-    next: 'ModalityLocalTraining',
+    next: 'Confirmation',
     title: 'Contato',
     emptyText: 'Nenhum contato foi adicionado.',
     fields: [
@@ -356,7 +356,7 @@ export default {
       return next(vm => vm.clearForm())
     }
 
-    if(from.name === 'ModalityLocalTraining') {
+    if(from.name === 'Confirmation') {
       return next(vm => vm.contacts)
     }
 
@@ -364,7 +364,7 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
-    if(to.name === 'ModalityLocalTraining') {
+    if(to.name === 'Confirmation') {
 
       if(!this.contacts.length) {
         this.$refs.observer.validate()

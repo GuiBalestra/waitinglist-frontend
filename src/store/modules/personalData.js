@@ -2,6 +2,7 @@ import PersonalDataModel from '@/shared/models/personalDataModel'
 import GENDERS from '@/shared/enums/genders'
 import SCHOOL_TERMS from '@/shared/enums/schoolTerms'
 import YES_NO from '@/shared/enums/yesNo'
+import DEFICIENCY_TYPES from '@/shared/enums/deficiencyTypes'
 import CidRepository from '@/shared/http/repositories/socialProject/cid'
 
 const state = {
@@ -9,6 +10,7 @@ const state = {
   genders: Object.values(GENDERS),
   schoolTerms: Object.values(SCHOOL_TERMS),
   yesNo: Object.values(YES_NO),
+  deficiencyTypes: Object.values(DEFICIENCY_TYPES),
   age: null
 }
 
