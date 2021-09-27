@@ -173,7 +173,7 @@ export default {
       modalitiesLocalTrainings: 'modalitiesLocalTrainings',
       localTrainings: 'localTrainings',
       modalities: 'modalities',
-      modalitiesLocals: 'modalitiesLocals',
+      modalitiesLocals: 'modalitiesLocals'
     }),
 
     ...mapState('personalDataModule', {
@@ -186,7 +186,7 @@ export default {
 
     ...mapGetters({
       modalityLocalTraining: 'modalityLocalTrainingModule/modalityLocalTraining',
-
+      age: 'personalDataModule/age'
     })
   },
 

@@ -45,14 +45,14 @@ export default {
 
   methods: {
      handleSave() {
-      this.showLoading(true)
+      //this.showLoading(true)
       const waitingList = new WaitingList()
 
       WaitingListRepository.Create(waitingList)
         .then(res => {
           if (!res) return Promise.reject()
 
-          this.showLoading(false)
+          //this.showLoading(false)
           this.$bvToast.toast('Cadastro salvo com sucesso.', {
             title: 'Erro',
             variant: 'danger',
@@ -62,7 +62,7 @@ export default {
           return this.$router.replace({ name: 'SendedForm' })
         })
         .catch(() => {
-          this.showLoading(false)
+          //this.showLoading(false)
           this.$bvToast.toast('Erro ao salvar na lista de espera.', {
             title: 'Erro',
             variant: 'danger',

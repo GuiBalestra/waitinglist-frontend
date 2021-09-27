@@ -318,7 +318,6 @@ export default {
     if(from.name === 'ModalityLocalTraining') {
       return next(vm => {
         vm.clearForm()
-        vm.clearAge()
       })
     }
 
