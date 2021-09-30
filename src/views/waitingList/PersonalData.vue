@@ -107,106 +107,7 @@
             </b-form-group>
           </ValidationProvider>
 
-          <ValidationProvider name="Deficiência" vid="deficiency" rules="required" v-slot="validationContext">
-            <b-form-group
-              id="input-group-7"
-              label="Possui alguma deficiência?"
-              label-for="hasDeficiency"
-              class="mb-3"
-            >
-              <b-form-select
-                id="hasDeficiency"
-                v-model="form.hasDeficiency"
-                :options="yesNo"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-7-live-feedback"
-              >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
-                </template>
-              </b-form-select>
-              <b-form-invalid-feedback id="input-7-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-            </b-form-group>
-          </ValidationProvider>
 
-          <ValidationProvider name="Tipo da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
-            <b-form-group
-              id="input-group-24"
-              label="Tipo de deficiência"
-              label-for="deficiencyType"
-              class="mb-3"
-            >
-              <b-form-select
-                id="deficiencyType"
-                v-model="form.deficiencyType"
-                :options="deficiencyTypes"
-                :state="getValidationState(validationContext)"
-                aria-describedby="input-24-live-feedback"
-              >
-                <template v-slot:first>
-                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
-                </template>
-              </b-form-select>
-              <b-form-invalid-feedback id="input-24-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-            </b-form-group>
-          </ValidationProvider>
-
-          <ValidationProvider name="CID" rules="required_if:deficiency,1" v-slot="validationContext">
-            <b-form-group
-              id="input-group-8"
-              label="Qual o CID?"
-              label-for="cid"
-              class="mb-3"
-              v-if="showDeficiency"
-            >
-              <b-skeleton-wrapper :loading="loading">
-                <template #loading>
-                  <b-skeleton></b-skeleton>
-                </template>
-                <b-form-input
-                  id="cid"
-                  v-model="form.cid"
-                  type="search"
-                  placeholder="Pesquisar CID ex.: F840"
-                  :state="getValidationState(validationContext)"
-                  aria-describedby="input-8-live-feedback"
-                  @keyup.enter="fetchCid(form.cid)"
-                >
-                </b-form-input>
-                <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-              </b-skeleton-wrapper>
-            </b-form-group>
-          </ValidationProvider>
-
-          <ValidationProvider name="Descrição da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
-            <b-form-group
-              id="input-group-9"
-              label="Qual deficiência?"
-              label-for="cidDescription"
-              class="mb-3"
-              v-if="showDeficiency"
-            >
-              <b-skeleton-wrapper :loading="loading">
-                <template #loading>
-                  <b-skeleton></b-skeleton>
-                  <b-skeleton></b-skeleton>
-                  <b-skeleton></b-skeleton>
-                </template>
-                <b-form-textarea
-                  id="cidDescription"
-                  v-model="form.cidDescription"
-                  placeholder="Descrição do CID"
-                  rows="3"
-                  max-rows="6"
-                  class="mt-3"
-                  :state="getValidationState(validationContext)"
-                  aria-describedby="input-9-live-feedback"
-                  disabled
-                ></b-form-textarea>
-                <b-form-invalid-feedback id="input-9-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-              </b-skeleton-wrapper>
-            </b-form-group>
-          </ValidationProvider>
 
           <ValidationProvider name="Observações" rules="required" v-slot="validationContext">
             <b-form-group
@@ -264,9 +165,7 @@ export default {
     ...mapState('personalDataModule', {
       form: 'personalData',
       genders: 'genders',
-      schoolTerms: 'schoolTerms',
-      yesNo: 'yesNo',
-      deficiencyTypes: 'deficiencyTypes'
+      schoolTerms: 'schoolTerms'
     }),
 
     ...mapState('commonModule', [
@@ -275,15 +174,7 @@ export default {
 
     ...mapGetters('personalDataModule', [
       'personalData'
-    ]),
-
-    showDeficiency() {
-      if (this.form.hasDeficiency === 1) {
-        return true
-      }
-
-      return false
-    }
+    ])
   },
 
   methods: {
@@ -292,13 +183,7 @@ export default {
     ]),
 
     ...mapActions('personalDataModule', {
-      clearAge: 'clearAge',
-
-      fetchCid: (dispatch, cidCode) => {
-        if (!cidCode) return
-
-        return dispatch('fetchCid', cidCode)
-      }
+      clearAge: 'clearAge'
     }),
 
     clearForm() {
@@ -351,19 +236,6 @@ export default {
     }
 
     return next()
-  },
-
-  watch: {
-    'form.hasDeficiency'(val) {
-      if(val === 0) {
-        this.form.cid = null
-        this.form.cidDescription = null
-
-        this.$nextTick(() => {
-          this.$refs.observer.reset()
-        })
-      }
-    }
   }
 }
 </script>

@@ -4,7 +4,7 @@
 
     <b-jumbotron>
       <ValidationObserver ref="observer">
-        <b-form>
+        <b-form @submit.stop.prevent>
           <ValidationProvider name="Data de Nascimento" rules="required" v-slot="validationContext">
             <b-form-group
               id="input-group-2"
@@ -16,7 +16,6 @@
                 id="birthDate"
                 v-model="form.birthDate"
                 type="date"
-                placeholder="dd/mm/aaaa"
                 :state="getValidationState(validationContext)"
                 aria-describedby="input-2-live-feedback"
                 @blur="setAge(form.birthDate)"
@@ -25,6 +24,112 @@
             </b-form-group>
           </ValidationProvider>
 
+          <ValidationProvider name="Deficiência" vid="deficiency" rules="required" v-slot="validationContext">
+            <b-form-group
+              id="input-group-7"
+              label="Possui alguma deficiência?"
+              label-for="hasDeficiency"
+              class="mb-3"
+            >
+              <b-form-select
+                id="hasDeficiency"
+                v-model="form.hasDeficiency"
+                :options="yesNo"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-7-live-feedback"
+              >
+                <template v-slot:first>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                </template>
+              </b-form-select>
+              <b-form-invalid-feedback id="input-7-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+            </b-form-group>
+          </ValidationProvider>
+
+          <ValidationProvider name="Tipo da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
+            <b-form-group
+              id="input-group-24"
+              label="Tipo de deficiência"
+              label-for="deficiencyType"
+              class="mb-3"
+              v-if="showDeficiency"
+            >
+              <b-form-select
+                id="deficiencyType"
+                v-model="form.deficiencyType"
+                :options="deficiencyTypes"
+                :state="getValidationState(validationContext)"
+                aria-describedby="input-24-live-feedback"
+              >
+                <template v-slot:first>
+                  <b-form-select-option :value="undefined" disabled>-- Selecione --</b-form-select-option>
+                </template>
+              </b-form-select>
+              <b-form-invalid-feedback id="input-24-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+            </b-form-group>
+          </ValidationProvider>
+
+          <ValidationProvider name="CID" rules="required_if:deficiency,1" v-slot="validationContext">
+            <b-form-group
+              id="input-group-8"
+              label="Qual o CID?"
+              label-for="cid"
+              class="mb-3"
+              v-if="showDeficiency"
+            >
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-input
+                  id="cid"
+                  v-model="form.cid"
+                  type="search"
+                  placeholder="Pesquisar CID ex.: F840"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-8-live-feedback"
+                  @keyup.enter="fetchCid(form.cid)"
+                >
+                </b-form-input>
+                <b-form-invalid-feedback id="input-8-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
+            </b-form-group>
+          </ValidationProvider>
+
+          <ValidationProvider name="Descrição da deficiência" rules="required_if:deficiency,1" v-slot="validationContext">
+            <b-form-group
+              id="input-group-9"
+              label="Qual deficiência?"
+              label-for="cidDescription"
+              class="mb-3"
+              v-if="showDeficiency"
+            >
+              <b-skeleton-wrapper :loading="loading">
+                <template #loading>
+                  <b-skeleton></b-skeleton>
+                  <b-skeleton></b-skeleton>
+                  <b-skeleton></b-skeleton>
+                </template>
+                <b-form-textarea
+                  id="cidDescription"
+                  v-model="form.cidDescription"
+                  placeholder="Descrição do CID"
+                  rows="3"
+                  max-rows="6"
+                  class="mt-3"
+                  :state="getValidationState(validationContext)"
+                  aria-describedby="input-9-live-feedback"
+                  disabled
+                ></b-form-textarea>
+                <b-form-invalid-feedback id="input-9-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+              </b-skeleton-wrapper>
+            </b-form-group>
+          </ValidationProvider>
+        </b-form>
+      </ValidationObserver>
+
+      <ValidationObserver ref="observer2">
+        <b-form>
           <ValidationProvider name="Local de Treinamento" rules="required" v-slot="validationContext">
             <b-form-group
               id="input-group-22"
@@ -177,7 +282,9 @@ export default {
     }),
 
     ...mapState('personalDataModule', {
-      form: 'personalData'
+      form: 'personalData',
+      yesNo: 'yesNo',
+      deficiencyTypes: 'deficiencyTypes'
     }),
 
     ...mapState('commonModule', [
@@ -187,7 +294,15 @@ export default {
     ...mapGetters({
       modalityLocalTraining: 'modalityLocalTrainingModule/modalityLocalTraining',
       age: 'personalDataModule/age'
-    })
+    }),
+
+    showDeficiency() {
+      if (this.form.hasDeficiency === 1) {
+        return true
+      }
+
+      return false
+    }
   },
 
   created() {
@@ -214,6 +329,12 @@ export default {
     ...mapActions('personalDataModule', {
       setAge: (dispatch, birthDate) => {
         return dispatch('setAge', birthDate)
+      },
+
+      fetchCid: (dispatch, cidCode) => {
+        if (!cidCode) return
+
+        return dispatch('fetchCid', cidCode)
       }
     }),
 
@@ -221,7 +342,7 @@ export default {
       this.clearModalityLocalTraining()
 
       this.$nextTick(() => {
-        this.$refs.observer.reset()
+        this.$refs.observer2.reset()
       })
     },
 
@@ -230,7 +351,7 @@ export default {
     },
 
     validateAddBtn() {
-      this.$refs.observer.validate()
+      this.$refs.observer2.validate()
         .then(valid => {
           if(!valid) {
             this.$bvToast.toast('Preencha todos os campos para adicionar um contato.', {
@@ -288,8 +409,24 @@ export default {
 
   beforeRouteLeave(to, from, next) {
     if(to.name === 'PersonalData') {
-      if(!this.modalitiesLocals.length) {
+
+      if (!this.form.birthDate || !this.form.hasDeficiency) {
         this.$refs.observer.validate()
+          .then(valid => {
+            if(!valid) {
+              this.$bvToast.toast('Preencha a data de nascimento e o(s) campo(s) de deficiência.', {
+                title: 'Erro',
+                variant: 'danger',
+                autoHideDelay: 2000
+              })
+            }
+          })
+
+        next(false)
+      }
+
+      if(!this.modalitiesLocals.length) {
+        this.$refs.observer2.validate()
           .then(() => {
             this.$bvToast.toast('Adicione uma modalidade por um local de treinamento.', {
               title: 'Erro',
@@ -309,6 +446,19 @@ export default {
     }
 
     return next()
+  },
+
+  watch: {
+    'form.hasDeficiency'(val) {
+      if(val === 0) {
+        this.form.cid = null
+        this.form.cidDescription = null
+
+        this.$nextTick(() => {
+          this.$refs.observer.reset()
+        })
+      }
+    }
   }
 }
 </script>
