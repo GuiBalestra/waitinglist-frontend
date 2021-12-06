@@ -1,12 +1,70 @@
 <template>
   <b-container>
-    <b-card>
-      <div><strong>Idade:</strong> {{age}}</div>
-      <div><strong>Dados Pessoais:</strong> {{personalData}}</div>
-      <div><strong>Endereço:</strong> {{address}}</div>
-      <div><strong>Contatos:</strong> {{contacts}}</div>
-      <div><strong>Modalidade e Local:</strong> {{modalitiesLocals}}</div>
-    </b-card>
+    <b-card-group>
+      <b-card>
+        <b-card-header
+          header="Dados Pessoais"
+          header-class="bold-header"
+        >
+        </b-card-header>
+        <b-card-body>
+          Nome: {{ personalData.name }}<br>
+          Idade: {{ age }}<br>
+          Gênero: {{ personalData.gender }}<br>
+          RG: {{ personalData.rg }}<br>
+          CPF: {{ personalData.cpf }}<br>
+          Período Escolar: {{ personalData.schoolTerm }}<br>
+          Observações: {{ personalData.observations }}<br>
+        </b-card-body>
+      </b-card>
+
+      <b-card>
+        <b-card-header
+          header="Endereço"
+          header-class="bold-header"
+        >
+        </b-card-header>
+        <b-card-body>
+          CEP: {{ address.zipCode }}<br>
+          Cidade: {{ address.city }}<br>
+          Bairro: {{ address.district }}<br>
+          Rua: {{ address.street }}<br>
+          Número: {{ address.number }}<br>
+          Complemento: {{ address.complement }}<br>
+        </b-card-body>
+      </b-card>
+    </b-card-group>
+
+    <b-card-group>
+      <b-card>
+        <b-card-header
+          header="Contatos"
+          header-class="bold-header"
+        >
+        </b-card-header>
+        <b-card-group class="mt-2" v-for="(contact, index) in contacts" :key="index">
+          <b-card class="mb-2">
+            Nome do contato: {{ contact.name }}<br>
+            Tipo do contato: {{ contact.contactTypeName }}<br>
+            Telefone 1: {{ contact.phone1 }}<br>
+            Telefone 2: {{ contact.phone2 }}<br>
+            Telefone 3: {{ contact.phone3 }}<br>
+            E-mail: {{ contact.email }}<br>
+          </b-card>
+        </b-card-group>
+      </b-card>
+
+      <b-card>
+        <b-card-header
+          header="Modalidade e Local"
+          header-class="bold-header"
+        >
+        </b-card-header>
+        <b-card-body v-for="(modalityLocal, index) in modalitiesLocals" :key="index">
+          {{ `${index + 1} -` }} {{ modalityLocal.localTrainingName }} / {{ modalityLocal.modalityName }}<br>
+        </b-card-body>
+      </b-card>
+    </b-card-group>
 
     <BackSaveButton
       :back="back"
@@ -75,5 +133,8 @@ export default {
 </script>
 
 <style>
-
+  .bold-header {
+    font-weight: bold;
+    text-align: center;
+  }
 </style>
