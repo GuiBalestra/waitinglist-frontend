@@ -85,7 +85,7 @@
                   id="cid"
                   v-model="form.cid"
                   type="search"
-                  placeholder="Pesquisar CID ex.: F840"
+                  placeholder="Pesquisar CID ex.: F840 e pressione Enter"
                   :state="getValidationState(validationContext)"
                   aria-describedby="input-8-live-feedback"
                   @keyup.enter="fetchCid(form.cid)"
@@ -136,6 +136,7 @@
               label="Local de treinamento"
               label-for="localTraining"
               class="mb-3"
+              v-if="showModalityLocal"
             >
               <b-skeleton-wrapper :loading="loading">
                 <template #loading>
@@ -166,6 +167,7 @@
               label="Modalidade"
               label-for="modalitity"
               class="mb-3"
+              v-if="showModalityLocal"
             >
               <b-skeleton-wrapper :loading="loading">
                 <template #loading>
@@ -191,7 +193,8 @@
           </ValidationProvider>
         </b-form>
       </ValidationObserver>
-      <div class="d-flex justify-content-end">
+
+      <div class="d-flex justify-content-end" v-if="showModalityLocal">
         <b-button
           variant="primary"
           class="mt-3"
@@ -206,6 +209,7 @@
         :fields="fields"
         :emptyText="emptyText"
         @remove="removeModalityLocalTraining"
+        v-if="showModalityLocal"
       />
     </b-jumbotron>
 
@@ -302,6 +306,14 @@ export default {
       }
 
       return false
+    },
+
+    showModalityLocal() {
+      if (this.form.birthDate && this.form.hasDeficiency !== undefined) {
+        return true
+      }
+
+      return false
     }
   },
 
@@ -389,6 +401,52 @@ export default {
 
     removeModalityLocalTraining(index) {
       this.removeModalityLocal(index)
+    },
+
+    rulesToRegister() {
+      if(this.form.deficiencyType === 1) {
+        return this.deficiencyRules()
+      }
+
+      return this.defaultRules()
+    },
+
+    defaultRules() {
+      if (this.age < 5 || this.age > 17) {
+        this.$bvToast.toast('Idade não permitida.', {
+                title: 'Erro',
+                variant: 'warning',
+                autoHideDelay: 2000
+              })
+      }
+
+      if (this.age >=5  && this.age <= 10) {
+        this.$bvToast.toast('Idade para natação e polo.', {
+                title: 'Erro',
+                variant: 'success',
+                autoHideDelay: 2000
+              })
+      }
+
+      if (this.age >= 7 && this.age <= 14) {
+        this.$bvToast.toast('Idade para música e atletismo no geisel.', {
+                title: 'Erro',
+                variant: 'success',
+                autoHideDelay: 2000
+              })
+      }
+
+      if (this.age >= 6 && this.age <= 17) {
+        this.$bvToast.toast('Idade para atletismo oriente.', {
+                title: 'Erro',
+                variant: 'success',
+                autoHideDelay: 2000
+              })
+      }
+    },
+
+    deficiencyRules() {
+      //regras de idade para escolher local e modalidade
     }
   },
 
