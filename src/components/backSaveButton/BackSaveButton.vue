@@ -2,10 +2,13 @@
   <b-container>
     <b-row class="inline-btn">
       <router-link :to="{ name: back }">
-        <b-button>Voltar</b-button>
+        <b-button variant="primary" pill>
+          <span><b-icon icon="arrow-left" variant="light" /></span>
+          VOLTAR
+        </b-button>
       </router-link>
 
-      <b-button @click="onSave">Salvar</b-button>
+      <b-button variant="success" pill @click="onSave">SALVAR</b-button>
     </b-row>
   </b-container>
 </template>

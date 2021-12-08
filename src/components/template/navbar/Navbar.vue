@@ -10,8 +10,8 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <router-link active-class="active" class="nav-link" :to="{ name: 'Infos' }">Informações</router-link>
+        <b-navbar-nav class="font-menu">
+          <router-link active-class="active" class="nav-link" :to="{ name: 'Infos' }">INFORMAÇÕES</router-link>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -28,15 +28,19 @@ export default {
   .header {
     grid-area: header;
     display: flex;
-    background: var(--dark-low);
+    background: var(--light);
   }
 
   .nav {
     width: 100%;
-    background: #00AEEF;
+    background: var(--light-blue);
   }
 
   img {
     height: 40px;
+  }
+
+  .font-menu {
+    font-family: 'Raleway', sans-serif;
   }
 </style>

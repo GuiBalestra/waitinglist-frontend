@@ -1,8 +1,7 @@
 <template>
-  <b-container>
-    <PageTitle :title="title" />
-
-    <b-jumbotron>
+  <b-container class="mt-5">
+    <b-jumbotron class="card-border jbt">
+      <PageTitle :title="title" />
       <ValidationObserver ref="observer">
         <b-form @submit.stop.prevent>
           <ValidationProvider name="Data de Nascimento" rules="required" v-slot="validationContext">
@@ -196,11 +195,12 @@
 
       <div class="d-flex justify-content-end" v-if="showModalityLocal">
         <b-button
-          variant="primary"
+          pill
+          variant="success"
           class="mt-3"
           @click="validateAddBtn"
         >
-          Adicionar
+          ADICIONAR
         </b-button>
       </div>
 
@@ -520,7 +520,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

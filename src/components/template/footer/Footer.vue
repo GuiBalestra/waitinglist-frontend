@@ -16,7 +16,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--dark-low);
+    background-color: var(--light-blue);
   }
 
   .footer span {

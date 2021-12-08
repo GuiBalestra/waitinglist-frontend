@@ -33,6 +33,6 @@ export default {
       'footer';
     min-height: 100vh;
     width: 100%;
-    background-color: var(--dark-medium);
+    background-color: var(--light);
   }
 </style>

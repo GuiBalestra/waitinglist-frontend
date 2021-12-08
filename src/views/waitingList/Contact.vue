@@ -1,8 +1,7 @@
 <template>
-  <b-container>
-    <PageTitle :title="title" />
-
-    <b-jumbotron>
+  <b-container class="mt-5">
+    <b-jumbotron class="card-border jbt">
+      <PageTitle :title="title" />
       <ValidationObserver ref="observer">
         <b-form>
           <ValidationProvider name="Tipo do Contato" rules="required" v-slot="validationContext">
@@ -136,11 +135,12 @@
 
       <div class="d-flex justify-content-end">
         <b-button
-          variant="primary"
+          pill
+          variant="success"
           class="mt-3"
           @click="validateAddBtn"
         >
-          Adicionar
+          ADICIONAR
         </b-button>
       </div>
 
@@ -390,7 +390,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

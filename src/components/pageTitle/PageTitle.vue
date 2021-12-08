@@ -21,6 +21,9 @@ export default {
   .page-title {
     display: flex;
     justify-content: center;
-    color: var(--light);
+    color: var(--dark);
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    margin-bottom: 50px;
   }
 </style>

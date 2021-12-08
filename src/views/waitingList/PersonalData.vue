@@ -1,8 +1,7 @@
 <template>
-  <b-container>
-    <PageTitle :title="title" />
-
-    <b-jumbotron>
+  <b-container class="mt-5">
+    <b-jumbotron class="card-border jbt">
+      <PageTitle :title="title" />
       <ValidationObserver ref="observer">
         <b-form>
           <ValidationProvider name="Nome" rules="required|alpha_spaces" v-slot="validationContext">
@@ -106,8 +105,6 @@
               <b-form-invalid-feedback id="input-6-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
             </b-form-group>
           </ValidationProvider>
-
-
 
           <ValidationProvider name="Observações" rules="required" v-slot="validationContext">
             <b-form-group

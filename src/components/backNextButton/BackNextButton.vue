@@ -2,11 +2,17 @@
   <b-container>
     <b-row :class="classButton">
       <router-link :to="{ name: back }" v-if="showBackBtn">
-        <b-button class="back-button">Voltar</b-button>
+        <b-button variant="primary" pill class="back-button">
+          <span><b-icon icon="arrow-left" variant="light" /></span>
+          VOLTAR
+        </b-button>
       </router-link>
 
       <router-link :to="{ name: next }">
-        <b-button class="next-button">Próximo</b-button>
+        <b-button variant="primary" pill class="next-button">
+          AVANÇAR
+          <span><b-icon icon="arrow-right" variant="light" /></span>
+        </b-button>
       </router-link>
     </b-row>
   </b-container>

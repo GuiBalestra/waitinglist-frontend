@@ -1,8 +1,7 @@
 <template>
-  <b-container>
-    <PageTitle :title="title" />
-
-    <b-jumbotron>
+  <b-container class="mt-5">
+    <b-jumbotron class="card-border jbt">
+      <PageTitle :title="title" />
       <ValidationObserver ref="observer">
         <b-form>
           <ValidationProvider name="CEP" rules="required|min:10|max:10" v-slot="validationContext">
@@ -260,7 +259,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

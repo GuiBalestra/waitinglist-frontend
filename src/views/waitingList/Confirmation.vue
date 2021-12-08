@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <b-card-group>
+    <b-card-group class="card-border mb-2">
       <b-card>
         <b-card-header
           header="Dados Pessoais"
@@ -35,7 +35,7 @@
       </b-card>
     </b-card-group>
 
-    <b-card-group>
+    <b-card-group class="card-border">
       <b-card>
         <b-card-header
           header="Contatos"
@@ -78,7 +78,8 @@
 import WaitingListRepository from '@/shared/http/repositories/socialProject/waitingList'
 import WaitingList from '@/shared/models/waitingList'
 import BackSaveButton from '@/components/backSaveButton/BackSaveButton.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import { mixin } from '@/shared/mixins'
 
 export default {
   name: 'Confirmation',
@@ -86,6 +87,8 @@ export default {
   components: {
     [BackSaveButton.name]: BackSaveButton,
   },
+
+  mixins: [mixin],
 
   data: () => ({
     back: 'Contact'
@@ -102,7 +105,11 @@ export default {
   },
 
   methods: {
-     handleSave() {
+    ...mapActions({
+      clearAge: 'personalDataModule/clearAge'
+    }),
+
+    handleSave() {
       //this.showLoading(true)
       const waitingList = new WaitingList()
 
@@ -128,6 +135,16 @@ export default {
           })
         })
     }
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if(to.name === 'Dashboard' || to.name === 'Infos' || to.name === 'NotFound' || to.name === 'SendedForm') {
+      this.clearState()
+      this.clearAge()
+      return next()
+    }
+
+    return next()
   }
 }
 </script>
