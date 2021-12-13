@@ -1,70 +1,76 @@
 <template>
   <b-container>
-    <b-card-group class="card-border mb-2">
-      <b-card>
-        <b-card-header
-          header="Dados Pessoais"
-          header-class="bold-header"
-        >
-        </b-card-header>
-        <b-card-body>
-          Nome: {{ personalData.name }}<br>
-          Idade: {{ age }}<br>
-          Gênero: {{ personalData.gender }}<br>
-          RG: {{ personalData.rg }}<br>
-          CPF: {{ personalData.cpf }}<br>
-          Período Escolar: {{ personalData.schoolTerm }}<br>
-          Observações: {{ personalData.observations }}<br>
-        </b-card-body>
-      </b-card>
+    <b-card body-class="bg-card" class="card-border mt-5 mb-2">
+      <b-row>
+        <b-col>
+          <b-card-header
+            header="Dados Pessoais"
+            header-class="c-header"
+          >
+          </b-card-header>
+          <b-card-body>
+            Nome: {{ personalData.name }}<br>
+            Idade: {{ age }}<br>
+            Gênero: {{ personalData.gender }}<br>
+            RG: {{ personalData.rg }}<br>
+            CPF: {{ personalData.cpf }}<br>
+            Período Escolar: {{ personalData.schoolTerm }}<br>
+            Observações: {{ personalData.observations }}<br>
+          </b-card-body>
+        </b-col>
 
-      <b-card>
-        <b-card-header
-          header="Endereço"
-          header-class="bold-header"
-        >
-        </b-card-header>
-        <b-card-body>
-          CEP: {{ address.zipCode }}<br>
-          Cidade: {{ address.city }}<br>
-          Bairro: {{ address.district }}<br>
-          Rua: {{ address.street }}<br>
-          Número: {{ address.number }}<br>
-          Complemento: {{ address.complement }}<br>
-        </b-card-body>
-      </b-card>
-    </b-card-group>
+        <b-col>
+          <b-card-header
+            header="Endereço"
+            header-class="c-header"
+          >
+          </b-card-header>
+          <b-card-body>
+            CEP: {{ address.zipCode }}<br>
+            Cidade: {{ address.city }}<br>
+            Bairro: {{ address.district }}<br>
+            Rua: {{ address.street }}<br>
+            Número: {{ address.number }}<br>
+            Complemento: {{ address.complement }}<br>
+          </b-card-body>
+        </b-col>
+      </b-row>
 
-    <b-card-group class="card-border">
-      <b-card>
-        <b-card-header
-          header="Contatos"
-          header-class="bold-header"
-        >
-        </b-card-header>
-        <b-card-group class="mt-2" v-for="(contact, index) in contacts" :key="index">
-          <b-card class="mb-2">
-            Nome do contato: {{ contact.name }}<br>
-            Tipo do contato: {{ contact.contactTypeName }}<br>
-            Telefone 1: {{ contact.phone1 }}<br>
-            Telefone 2: {{ contact.phone2 }}<br>
-            Telefone 3: {{ contact.phone3 }}<br>
-            E-mail: {{ contact.email }}<br>
+      <b-row>
+        <b-col>
+          <b-card-header
+            header="Contatos"
+            header-class="c-header"
+          >
+          </b-card-header>
+          <b-card-group class="mt-2" v-for="(contact, index) in contacts" :key="index">
+            <b-card body-class="bg-card" class="mb-2">
+              Nome do contato: {{ contact.name }}<br>
+              Tipo do contato: {{ contact.contactTypeName }}<br>
+              Telefone 1: {{ contact.phone1 }}<br>
+              Telefone 2: {{ contact.phone2 }}<br>
+              Telefone 3: {{ contact.phone3 }}<br>
+              E-mail: {{ contact.email }}<br>
+            </b-card>
+          </b-card-group>
+        </b-col>
+
+        <b-col>
+          <b-card-header
+            header="Modalidade e Local"
+            header-class="c-header"
+          >
+          </b-card-header>
+          <b-card body-class="bg-card" class="mt-2">
+            <ol>
+              <li v-for="(modalityLocal, index) in modalitiesLocals" :key="index">
+                {{ modalityLocal.localTrainingName }} / {{ modalityLocal.modalityName }}<br>
+              </li>
+            </ol>
           </b-card>
-        </b-card-group>
-      </b-card>
-
-      <b-card>
-        <b-card-header
-          header="Modalidade e Local"
-          header-class="bold-header"
-        >
-        </b-card-header>
-        <b-card-body v-for="(modalityLocal, index) in modalitiesLocals" :key="index">
-          {{ `${index + 1} -` }} {{ modalityLocal.localTrainingName }} / {{ modalityLocal.modalityName }}<br>
-        </b-card-body>
-      </b-card>
-    </b-card-group>
+        </b-col>
+      </b-row>
+    </b-card>
 
     <BackSaveButton
       :back="back"
@@ -150,8 +156,10 @@ export default {
 </script>
 
 <style>
-  .bold-header {
+  .c-header {
     font-weight: bold;
     text-align: center;
+    border-bottom: none;
+    font-family: 'Raleway', sans-serif;
   }
 </style>

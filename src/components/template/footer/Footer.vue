@@ -17,6 +17,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: var(--light-blue);
+    font-family: 'Raleway', sans-serif;
   }
 
   .footer span {
